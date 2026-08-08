@@ -1,0 +1,89 @@
+package utils;
+
+import com.aventstack.extentreports.ExtentTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class TestListener implements ITestListener {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(TestListener.class);
+
+    private long startTime;
+
+    @Override
+    public void onStart(ITestContext context) {
+
+        startTime = System.currentTimeMillis();
+
+        ExtentManager.getExtentReports();
+
+        logger.info("============================================================");
+        logger.info("TEST EXECUTION STARTED");
+        logger.info("Suite : {}", context.getSuite().getName());
+        logger.info("============================================================");
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+
+        ExtentTest test = ExtentManager
+                .getExtentReports()
+                .createTest(result.getMethod().getDescription());
+
+        ExtentTestManager.setTest(test);
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+
+        ExtentTestManager.getTest().pass("Test Passed");
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+
+        ExtentTestManager.getTest().fail(result.getThrowable());
+    }
+
+    @Override
+    public void onTestSkipped(ITestResult result) {
+
+        ExtentTestManager.getTest().skip("Test Skipped");
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
+
+        ExtentManager.getExtentReports().flush();
+        ExtentTestManager.unload();
+
+        long duration = (System.currentTimeMillis() - startTime) / 1000;
+
+        int total = context.getAllTestMethods().length;
+        int passed = context.getPassedTests().size();
+        int failed = context.getFailedTests().size();
+        int skipped = context.getSkippedTests().size();
+
+        double passRate = total > 0
+                ? (passed * 100.0) / total
+                : 0.0;
+
+        logger.info("");
+        logger.info("============================================================");
+        logger.info("TEST EXECUTION SUMMARY");
+        logger.info("------------------------------------------------------------");
+        logger.info("Suite       : {}", context.getSuite().getName());
+        logger.info("Total Tests : {}", total);
+        logger.info("Passed      : {}", passed);
+        logger.info("Failed      : {}", failed);
+        logger.info("Skipped     : {}", skipped);
+        logger.info("Pass Rate   : {}%",
+                String.format("%.2f", passRate));
+        logger.info("Duration    : {} sec", duration);
+        logger.info("============================================================");
+    }
+}

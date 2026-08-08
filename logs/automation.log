@@ -1,0 +1,482 @@
+2026-08-08 17:06:19 | INFO  | u.TestListener  | ============================================================
+2026-08-08 17:06:19 | INFO  | u.TestListener  | TEST EXECUTION STARTED
+2026-08-08 17:06:19 | INFO  | u.TestListener  | Suite : Default Suite
+2026-08-08 17:06:19 | INFO  | u.TestListener  | ============================================================
+2026-08-08 17:06:27 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:06:27 | INFO  | t.ContentTest   | TEST CASE : TC_004 - Verify Add New Subject
+2026-08-08 17:06:27 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:06:27 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 17:06:27 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:06:27 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:06:27 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:06:27 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:06:28 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:06:28 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 17:06:28 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 17:06:30 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 17:06:35 | INFO  | t.ContentTest   | STEP 3 : Add New Subject
+2026-08-08 17:06:35 | INFO  | t.ContentTest   | Subject Name : Health
+2026-08-08 17:06:35 | INFO  | t.ContentTest   | Image Path : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 17:06:38 | INFO  | p.ContentPage   | Opening Add New Subject
+2026-08-08 17:06:38 | INFO  | p.ContentPage   | Entering Subject Name
+2026-08-08 17:06:39 | INFO  | p.ContentPage   | Uploading Subject Image
+2026-08-08 17:06:39 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 17:06:39 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 17:06:39 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 17:06:39 | INFO  | p.ContentPage   | Clicking Add Subject
+2026-08-08 17:06:40 | INFO  | p.ContentPage   | Subject 'Health' created successfully
+2026-08-08 17:06:46 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 17:06:46 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:06:51 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:06:51 | INFO  | t.ContentTest   | TEST CASE : TC_005 - Verify Add New Level
+2026-08-08 17:06:51 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:06:51 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 17:06:51 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:06:51 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:06:51 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:06:52 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:06:52 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:06:55 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 17:06:55 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 17:06:55 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 17:07:01 | INFO  | t.ContentTest   | STEP 3 : Add New Level
+2026-08-08 17:07:01 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 17:07:01 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 17:07:02 | INFO  | p.ContentPage   | Entering Level Number : 1
+2026-08-08 17:07:02 | INFO  | p.ContentPage   | Entering Grade : First Grade
+2026-08-08 17:07:02 | INFO  | p.ContentPage   | Entering Description
+2026-08-08 17:07:02 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 17:07:02 | INFO  | p.ContentPage   | Level added successfully.
+2026-08-08 17:07:05 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 17:07:05 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:07:09 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:07:09 | INFO  | t.ContentTest   | TEST CASE : TC_006 - Verify Add New Chapter
+2026-08-08 17:07:09 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:07:09 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 17:07:09 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:07:09 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:07:09 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:07:09 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:07:10 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:07:10 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 17:07:10 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 17:07:11 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 17:07:11 | INFO  | t.ContentTest   | STEP 5 : Add New Chapter
+2026-08-08 17:07:11 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 17:07:11 | INFO  | p.ContentPage   | Subject clicked successfully
+2026-08-08 17:07:14 | INFO  | p.ContentPage   | Opening Level : First Grade
+2026-08-08 17:07:17 | INFO  | p.ContentPage   | Clicking Theory/Video
+2026-08-08 17:07:20 | INFO  | p.ContentPage   | Clicking Add Your First Chapter
+2026-08-08 17:07:21 | INFO  | p.ContentPage   | Verifying Add New Chapter form
+2026-08-08 17:07:27 | INFO  | p.ContentPage   | Entering Chapter Number : 1
+2026-08-08 17:07:30 | INFO  | p.ContentPage   | Entering Chapter Title : Introduction to Health
+2026-08-08 17:07:33 | INFO  | p.ContentPage   | Entering Chapter Description
+2026-08-08 17:07:36 | INFO  | p.ContentPage   | Clicking Add Chapter
+2026-08-08 17:07:36 | INFO  | p.ContentPage   | Refreshing page after chapter creation
+2026-08-08 17:07:41 | INFO  | p.ContentPage   | Uploading Video : D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-08 17:07:41 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 17:07:41 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-08 17:07:41 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 17:07:44 | INFO  | p.ContentPage   | Uploading Cover Image : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 17:07:44 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 17:07:44 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 17:07:44 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 17:07:47 | INFO  | p.ContentPage   | Adding Chapter Content
+2026-08-08 17:07:54 | INFO  | p.ContentPage   | Adding Learning Outcome 1
+2026-08-08 17:07:57 | INFO  | p.ContentPage   | Adding Learning Outcome 2
+2026-08-08 17:08:00 | INFO  | p.ContentPage   | Adding Learning Outcome 3
+2026-08-08 17:08:03 | INFO  | p.ContentPage   | Clicking Submit
+2026-08-08 17:08:10 | INFO  | p.ContentPage   | Chapter added successfully
+2026-08-08 17:08:10 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 17:08:10 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:08:20 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:08:20 | INFO  | t.ContentTest   | TEST CASE : TC_007 - Verify Add Quiz Question
+2026-08-08 17:08:20 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:08:20 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 17:08:20 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:08:20 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:08:21 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:08:21 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:08:21 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:08:21 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 17:08:21 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 17:08:22 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 17:08:23 | INFO  | t.ContentTest   | STEP 3 : Add Quiz Question
+2026-08-08 17:08:23 | INFO  | p.ContentPage   | Clicking Subject : Health
+2026-08-08 17:08:26 | INFO  | p.ContentPage   | Clicking Level : First Grade
+2026-08-08 17:08:58 | INFO  | p.ContentPage   | Selecting Difficulty Level : Easy
+2026-08-08 17:09:07 | INFO  | p.ContentPage   | Entering Explanation
+2026-08-08 17:09:10 | INFO  | p.ContentPage   | Clicking Submit Question
+2026-08-08 17:09:17 | INFO  | p.ContentPage   | Quiz Question added successfully
+2026-08-08 17:09:17 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 17:09:17 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 17:09:27 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 17:09:27 | INFO  | t.DashboardTest | TEST CASE : TC_003 - Verify Platform Pulse KPI Cards
+2026-08-08 17:09:27 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 17:09:27 | INFO  | t.DashboardTest | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 17:09:27 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:09:27 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:09:27 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:09:28 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:09:28 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:09:28 | INFO  | t.DashboardTest | STEP 2 : Validate Dashboard page
+2026-08-08 17:09:28 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 17:09:29 | INFO  | t.DashboardTest | STEP 3 : Validate Platform Pulse KPI Cards
+2026-08-08 17:09:29 | INFO  | p.DashboardPage | Verifying Total Users card.
+2026-08-08 17:09:30 | INFO  | p.DashboardPage | Verifying New Subscriptions card.
+2026-08-08 17:09:30 | INFO  | p.DashboardPage | Verifying Revenue card.
+2026-08-08 17:09:30 | INFO  | p.DashboardPage | Verifying Churn Rate card.
+2026-08-08 17:09:30 | INFO  | p.DashboardPage | Verifying DAU card.
+2026-08-08 17:09:30 | INFO  | t.DashboardTest | TEST RESULT : PASSED
+2026-08-08 17:09:30 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 17:09:34 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:34 | INFO  | test.LoginTest  | TEST CASE : TC_001 - Verify Admin Login and Dashboard Title
+2026-08-08 17:09:34 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:34 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 17:09:34 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:09:34 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:09:35 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:09:35 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:09:36 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:09:36 | INFO  | test.LoginTest  | STEP 2 : Validate Dashboard page
+2026-08-08 17:09:36 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 17:09:37 | INFO  | test.LoginTest  | STEP 3 : Validate Dashboard title
+2026-08-08 17:09:37 | INFO  | p.DashboardPage | Getting Dashboard title.
+2026-08-08 17:09:37 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 17:09:37 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:41 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:41 | INFO  | test.LoginTest  | TEST CASE : TC_002 - Verify Admin Logout
+2026-08-08 17:09:41 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:41 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 17:09:41 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 17:09:41 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 17:09:41 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 17:09:41 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 17:09:42 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 17:09:42 | INFO  | test.LoginTest  | STEP 2 : Logout from MontreCY Admin Portal
+2026-08-08 17:09:42 | INFO  | p.DashboardPage | Starting Logout process.
+2026-08-08 17:09:43 | INFO  | p.DashboardPage | Clicked User Avatar.
+2026-08-08 17:09:45 | INFO  | p.DashboardPage | Logout completed successfully.
+2026-08-08 17:09:45 | INFO  | test.LoginTest  | STEP 3 : Validate Login page
+2026-08-08 17:09:45 | INFO  | p.LoginPage     | Verifying Login page.
+2026-08-08 17:09:45 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 17:09:45 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 17:09:46 | INFO  | u.TestListener  | 
+2026-08-08 17:09:46 | INFO  | u.TestListener  | ============================================================
+2026-08-08 17:09:46 | INFO  | u.TestListener  | TEST EXECUTION SUMMARY
+2026-08-08 17:09:46 | INFO  | u.TestListener  | ------------------------------------------------------------
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Suite       : Default Suite
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Total Tests : 7
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Passed      : 7
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Failed      : 0
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Skipped     : 0
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Pass Rate   : 100.00%
+2026-08-08 17:09:46 | INFO  | u.TestListener  | Duration    : 206 sec
+2026-08-08 17:09:46 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:11:02 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:11:02 | INFO  | u.TestListener  | TEST EXECUTION STARTED
+2026-08-08 21:11:02 | INFO  | u.TestListener  | Suite : Default Suite
+2026-08-08 21:11:02 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:11:16 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:16 | INFO  | t.ContentTest   | TEST CASE : TC_004 - Verify Add New Subject
+2026-08-08 21:11:16 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:16 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:11:16 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:11:16 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:11:16 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:11:16 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:11:16 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:11:16 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:11:16 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:11:19 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:11:24 | INFO  | t.ContentTest   | STEP 3 : Add New Subject
+2026-08-08 21:11:24 | INFO  | t.ContentTest   | Subject Name : Health
+2026-08-08 21:11:24 | INFO  | t.ContentTest   | Image Path : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:11:27 | INFO  | p.ContentPage   | Opening Add New Subject
+2026-08-08 21:11:27 | INFO  | p.ContentPage   | Entering Subject Name
+2026-08-08 21:11:28 | INFO  | p.ContentPage   | Uploading Subject Image
+2026-08-08 21:11:28 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 21:11:28 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:11:28 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 21:11:28 | INFO  | p.ContentPage   | Clicking Add Subject
+2026-08-08 21:11:29 | INFO  | p.ContentPage   | Subject 'Health' created successfully
+2026-08-08 21:11:34 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:11:34 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:38 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:38 | INFO  | t.ContentTest   | TEST CASE : TC_005 - Verify Add New Level
+2026-08-08 21:11:38 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:38 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:11:38 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:11:38 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:11:38 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:11:38 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:11:39 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:11:42 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:11:42 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:11:42 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:11:48 | INFO  | t.ContentTest   | STEP 3 : Add New Level
+2026-08-08 21:11:48 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 21:11:48 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 21:11:49 | INFO  | p.ContentPage   | Entering Level Number : 1
+2026-08-08 21:11:49 | INFO  | p.ContentPage   | Entering Grade : First Grade
+2026-08-08 21:11:49 | INFO  | p.ContentPage   | Entering Description
+2026-08-08 21:11:49 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 21:11:49 | INFO  | p.ContentPage   | Level added successfully.
+2026-08-08 21:11:52 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:11:52 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:56 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:56 | INFO  | t.ContentTest   | TEST CASE : TC_006 - Verify Add New Chapter
+2026-08-08 21:11:56 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:11:56 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:11:56 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:11:56 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:11:56 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:11:56 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:11:56 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:11:56 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:11:56 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:11:58 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:11:58 | INFO  | t.ContentTest   | STEP 5 : Add New Chapter
+2026-08-08 21:11:58 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 21:11:58 | INFO  | p.ContentPage   | Subject clicked successfully
+2026-08-08 21:12:01 | INFO  | p.ContentPage   | Opening Level : First Grade
+2026-08-08 21:12:04 | INFO  | p.ContentPage   | Clicking Theory/Video
+2026-08-08 21:12:07 | INFO  | p.ContentPage   | Clicking Add Your First Chapter
+2026-08-08 21:12:30 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:12:30 | INFO  | t.DashboardTest | TEST CASE : TC_003 - Verify Platform Pulse KPI Cards
+2026-08-08 21:12:30 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:12:30 | INFO  | t.DashboardTest | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:12:30 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:12:30 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:12:30 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:12:30 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:12:30 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:12:30 | INFO  | t.DashboardTest | STEP 2 : Validate Dashboard page
+2026-08-08 21:12:30 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 21:12:31 | INFO  | t.DashboardTest | STEP 3 : Validate Platform Pulse KPI Cards
+2026-08-08 21:12:31 | INFO  | p.DashboardPage | Verifying Total Users card.
+2026-08-08 21:12:31 | INFO  | p.DashboardPage | Verifying New Subscriptions card.
+2026-08-08 21:12:31 | INFO  | p.DashboardPage | Verifying Revenue card.
+2026-08-08 21:12:31 | INFO  | p.DashboardPage | Verifying Churn Rate card.
+2026-08-08 21:12:31 | INFO  | p.DashboardPage | Verifying DAU card.
+2026-08-08 21:12:31 | INFO  | t.DashboardTest | TEST RESULT : PASSED
+2026-08-08 21:12:31 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:12:34 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:34 | INFO  | test.LoginTest  | TEST CASE : TC_001 - Verify Admin Login and Dashboard Title
+2026-08-08 21:12:34 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:34 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:12:34 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:12:34 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:12:34 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:12:34 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:12:34 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:12:34 | INFO  | test.LoginTest  | STEP 2 : Validate Dashboard page
+2026-08-08 21:12:34 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 21:12:35 | INFO  | test.LoginTest  | STEP 3 : Validate Dashboard title
+2026-08-08 21:12:35 | INFO  | p.DashboardPage | Getting Dashboard title.
+2026-08-08 21:12:35 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 21:12:35 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:37 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:37 | INFO  | test.LoginTest  | TEST CASE : TC_002 - Verify Admin Logout
+2026-08-08 21:12:37 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:37 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:12:37 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:12:37 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:12:37 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:12:38 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:12:38 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:12:38 | INFO  | test.LoginTest  | STEP 2 : Logout from MontreCY Admin Portal
+2026-08-08 21:12:38 | INFO  | p.DashboardPage | Starting Logout process.
+2026-08-08 21:12:38 | INFO  | p.DashboardPage | Clicked User Avatar.
+2026-08-08 21:12:39 | INFO  | p.DashboardPage | Logout completed successfully.
+2026-08-08 21:12:39 | INFO  | test.LoginTest  | STEP 3 : Validate Login page
+2026-08-08 21:12:39 | INFO  | p.LoginPage     | Verifying Login page.
+2026-08-08 21:12:39 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 21:12:39 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:12:39 | INFO  | u.TestListener  | 
+2026-08-08 21:12:39 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:12:39 | INFO  | u.TestListener  | TEST EXECUTION SUMMARY
+2026-08-08 21:12:39 | INFO  | u.TestListener  | ------------------------------------------------------------
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Suite       : Default Suite
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Total Tests : 7
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Passed      : 5
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Failed      : 1
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Skipped     : 1
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Pass Rate   : 71.43%
+2026-08-08 21:12:39 | INFO  | u.TestListener  | Duration    : 97 sec
+2026-08-08 21:12:39 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:23:07 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:23:07 | INFO  | u.TestListener  | TEST EXECUTION STARTED
+2026-08-08 21:23:07 | INFO  | u.TestListener  | Suite : Default Suite
+2026-08-08 21:23:07 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:23:11 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:11 | INFO  | t.ContentTest   | TEST CASE : TC_004 - Verify Add New Subject
+2026-08-08 21:23:11 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:11 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:23:11 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:23:11 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:23:12 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:23:12 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:23:12 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:23:12 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:23:12 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:23:12 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:23:18 | INFO  | t.ContentTest   | STEP 3 : Add New Subject
+2026-08-08 21:23:18 | INFO  | t.ContentTest   | Subject Name : Health
+2026-08-08 21:23:18 | INFO  | t.ContentTest   | Image Path : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:23:21 | INFO  | p.ContentPage   | Opening Add New Subject
+2026-08-08 21:23:21 | INFO  | p.ContentPage   | Entering Subject Name
+2026-08-08 21:23:21 | INFO  | p.ContentPage   | Uploading Subject Image
+2026-08-08 21:23:21 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 21:23:21 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:23:21 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 21:23:21 | INFO  | p.ContentPage   | Clicking Add Subject
+2026-08-08 21:23:22 | INFO  | p.ContentPage   | Subject 'Health' created successfully
+2026-08-08 21:23:28 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:23:28 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:30 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:30 | INFO  | t.ContentTest   | TEST CASE : TC_005 - Verify Add New Level
+2026-08-08 21:23:30 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:30 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:23:30 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:23:30 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:23:30 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:23:31 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:23:31 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:23:34 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:23:34 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:23:34 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:23:40 | INFO  | t.ContentTest   | STEP 3 : Add New Level
+2026-08-08 21:23:40 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 21:23:40 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 21:23:41 | INFO  | p.ContentPage   | Entering Level Number : 1
+2026-08-08 21:23:41 | INFO  | p.ContentPage   | Entering Grade : First Grade
+2026-08-08 21:23:41 | INFO  | p.ContentPage   | Entering Description
+2026-08-08 21:23:41 | INFO  | p.ContentPage   | Clicking Add New Level
+2026-08-08 21:23:41 | INFO  | p.ContentPage   | Level added successfully.
+2026-08-08 21:23:44 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:23:44 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:46 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:46 | INFO  | t.ContentTest   | TEST CASE : TC_006 - Verify Add New Chapter
+2026-08-08 21:23:46 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:23:46 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:23:46 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:23:46 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:23:47 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:23:47 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:23:47 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:23:47 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:23:47 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:23:48 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:23:48 | INFO  | t.ContentTest   | STEP 5 : Add New Chapter
+2026-08-08 21:23:48 | INFO  | p.ContentPage   | Opening Subject : Health
+2026-08-08 21:23:48 | INFO  | p.ContentPage   | Subject clicked successfully
+2026-08-08 21:23:51 | INFO  | p.ContentPage   | Opening Level : First Grade
+2026-08-08 21:23:54 | INFO  | p.ContentPage   | Clicking Theory/Video
+2026-08-08 21:23:58 | INFO  | p.ContentPage   | Clicking Add Your First Chapter
+2026-08-08 21:23:58 | INFO  | p.ContentPage   | Verifying Add New Chapter form
+2026-08-08 21:24:04 | INFO  | p.ContentPage   | Entering Chapter Number : 1
+2026-08-08 21:24:07 | INFO  | p.ContentPage   | Entering Chapter Title : Introduction to Health
+2026-08-08 21:24:10 | INFO  | p.ContentPage   | Entering Chapter Description
+2026-08-08 21:24:13 | INFO  | p.ContentPage   | Clicking Add Chapter
+2026-08-08 21:24:13 | INFO  | p.ContentPage   | Refreshing page after chapter creation
+2026-08-08 21:24:16 | INFO  | p.ContentPage   | Uploading Video : D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-08 21:24:16 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 21:24:17 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-08 21:24:17 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 21:24:20 | INFO  | p.ContentPage   | Uploading Cover Image : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:24:20 | INFO  | p.CommonActions | Clicking upload area
+2026-08-08 21:24:20 | INFO  | p.CommonActions | Uploading file : D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-08 21:24:20 | INFO  | p.CommonActions | File uploaded successfully
+2026-08-08 21:24:23 | INFO  | p.ContentPage   | Adding Chapter Content
+2026-08-08 21:24:29 | INFO  | p.ContentPage   | Adding Learning Outcome 1
+2026-08-08 21:24:33 | INFO  | p.ContentPage   | Adding Learning Outcome 2
+2026-08-08 21:24:36 | INFO  | p.ContentPage   | Adding Learning Outcome 3
+2026-08-08 21:24:39 | INFO  | p.ContentPage   | Clicking Submit
+2026-08-08 21:24:45 | INFO  | p.ContentPage   | Chapter added successfully
+2026-08-08 21:24:45 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:24:45 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:24:48 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:24:48 | INFO  | t.ContentTest   | TEST CASE : TC_007 - Verify Add Quiz Question
+2026-08-08 21:24:48 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:24:48 | INFO  | t.ContentTest   | STEP 1 : Login
+2026-08-08 21:24:48 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:24:48 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:24:48 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:24:48 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:24:48 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:24:48 | INFO  | t.ContentTest   | STEP 2 : Navigate to Content
+2026-08-08 21:24:48 | INFO  | p.ContentPage   | Clicking Content menu
+2026-08-08 21:24:49 | INFO  | p.ContentPage   | Content page opened
+2026-08-08 21:24:49 | INFO  | t.ContentTest   | STEP 3 : Add Quiz Question
+2026-08-08 21:24:49 | INFO  | p.ContentPage   | Clicking Subject : Health
+2026-08-08 21:24:52 | INFO  | p.ContentPage   | Clicking Level : First Grade
+2026-08-08 21:25:24 | INFO  | p.ContentPage   | Selecting Difficulty Level : Easy
+2026-08-08 21:25:33 | INFO  | p.ContentPage   | Entering Explanation
+2026-08-08 21:25:36 | INFO  | p.ContentPage   | Clicking Submit Question
+2026-08-08 21:25:44 | INFO  | p.ContentPage   | Quiz Question added successfully
+2026-08-08 21:25:44 | INFO  | t.ContentTest   | TEST RESULT : PASSED
+2026-08-08 21:25:44 | INFO  | t.ContentTest   | ======================================================
+2026-08-08 21:25:46 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:46 | INFO  | test.LoginTest  | TEST CASE : TC_001 - Verify Admin Login and Dashboard Title
+2026-08-08 21:25:46 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:46 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:25:46 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:25:46 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:25:46 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:25:46 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:25:46 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:25:46 | INFO  | test.LoginTest  | STEP 2 : Validate Dashboard page
+2026-08-08 21:25:46 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 21:25:47 | INFO  | test.LoginTest  | STEP 3 : Validate Dashboard title
+2026-08-08 21:25:47 | INFO  | p.DashboardPage | Getting Dashboard title.
+2026-08-08 21:25:47 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 21:25:47 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:50 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:50 | INFO  | test.LoginTest  | TEST CASE : TC_002 - Verify Admin Logout
+2026-08-08 21:25:50 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:50 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:25:50 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:25:50 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:25:50 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:25:50 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:25:50 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:25:50 | INFO  | test.LoginTest  | STEP 2 : Logout from MontreCY Admin Portal
+2026-08-08 21:25:50 | INFO  | p.DashboardPage | Starting Logout process.
+2026-08-08 21:25:51 | INFO  | p.DashboardPage | Clicked User Avatar.
+2026-08-08 21:25:51 | INFO  | p.DashboardPage | Logout completed successfully.
+2026-08-08 21:25:51 | INFO  | test.LoginTest  | STEP 3 : Validate Login page
+2026-08-08 21:25:51 | INFO  | p.LoginPage     | Verifying Login page.
+2026-08-08 21:25:51 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-08 21:25:51 | INFO  | test.LoginTest  | ============================================================
+2026-08-08 21:25:53 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:25:53 | INFO  | t.DashboardTest | TEST CASE : TC_003 - Verify Platform Pulse KPI Cards
+2026-08-08 21:25:53 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:25:53 | INFO  | t.DashboardTest | STEP 1 : Login to MontreCY Admin Portal
+2026-08-08 21:25:53 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-08 21:25:53 | INFO  | p.LoginPage     | Entering Email.
+2026-08-08 21:25:53 | INFO  | p.LoginPage     | Entering Password.
+2026-08-08 21:25:53 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-08 21:25:53 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-08 21:25:53 | INFO  | t.DashboardTest | STEP 2 : Validate Dashboard page
+2026-08-08 21:25:53 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-08 21:25:55 | INFO  | t.DashboardTest | STEP 3 : Validate Platform Pulse KPI Cards
+2026-08-08 21:25:55 | INFO  | p.DashboardPage | Verifying Total Users card.
+2026-08-08 21:25:55 | INFO  | p.DashboardPage | Verifying New Subscriptions card.
+2026-08-08 21:25:55 | INFO  | p.DashboardPage | Verifying Revenue card.
+2026-08-08 21:25:55 | INFO  | p.DashboardPage | Verifying Churn Rate card.
+2026-08-08 21:25:55 | INFO  | p.DashboardPage | Verifying DAU card.
+2026-08-08 21:25:55 | INFO  | t.DashboardTest | TEST RESULT : PASSED
+2026-08-08 21:25:55 | INFO  | t.DashboardTest | ============================================================
+2026-08-08 21:25:55 | INFO  | u.TestListener  | 
+2026-08-08 21:25:55 | INFO  | u.TestListener  | ============================================================
+2026-08-08 21:25:55 | INFO  | u.TestListener  | TEST EXECUTION SUMMARY
+2026-08-08 21:25:55 | INFO  | u.TestListener  | ------------------------------------------------------------
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Suite       : Default Suite
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Total Tests : 7
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Passed      : 7
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Failed      : 0
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Skipped     : 0
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Pass Rate   : 100.00%
+2026-08-08 21:25:55 | INFO  | u.TestListener  | Duration    : 168 sec
+2026-08-08 21:25:55 | INFO  | u.TestListener  | ============================================================

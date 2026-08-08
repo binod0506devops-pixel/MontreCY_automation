@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE"
+              class="ch.qos.logback.core.ConsoleAppender">
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} | %-5level | %-15logger{15} | %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- File Appender -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.FileAppender">
+
+        <file>Logs/automation.log</file>
+        <append>true</append>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} | %-5level | %-15logger{15} | %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <!-- Hide TestNG logs -->
+    <logger name="org.testng" level="WARN"/>
+
+    <!-- Hide WebDriverManager logs -->
+    <logger name="io.github.bonigarcia.wdm" level="WARN"/>
+
+    <!-- Hide Selenium logs -->
+    <logger name="org.openqa.selenium" level="WARN"/>
+
+    <!-- Hide Apache HttpClient logs (optional) -->
+    <logger name="org.apache.hc" level="WARN"/>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
