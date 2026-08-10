@@ -1,0 +1,57 @@
+package base;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseTest {
+
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+
+    private static final String BASE_URL =
+            "https://console-sandbox.moneytreecy.in/admin/permissions-matrix";
+
+    @BeforeMethod
+    public void setUp() {
+
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+
+        // Do NOT add proxy/offline arguments here
+        // options.addArguments("--proxy-server=...");
+        // options.addArguments("--offline");
+
+        driver = new ChromeDriver(options);
+
+        driver.manage().window().maximize();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        System.out.println("Opening URL: " + BASE_URL);
+
+        driver.get(BASE_URL);
+
+        System.out.println("Page opened successfully.");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}

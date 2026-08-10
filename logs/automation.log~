@@ -1,0 +1,151 @@
+2026-08-10 11:04:06 | INFO  | u.TestListener  | ============================================================
+2026-08-10 11:04:06 | INFO  | u.TestListener  | TEST EXECUTION STARTED
+2026-08-10 11:04:06 | INFO  | u.TestListener  | Suite : Default Suite
+2026-08-10 11:04:06 | INFO  | u.TestListener  | ============================================================
+2026-08-10 11:04:10 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:04:10 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:04:10 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:04:11 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:04:11 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:04:11 | INFO  | p.CommonActions | Waiting for element to be displayed: By.xpath: //*[normalize-space()='Dashboard']
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Clicking element: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Element displayed: By.xpath: //*[normalize-space()='Subjects'] | Result: true
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Clicking element: By.xpath: //button[normalize-space()='Add New Subject']
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //button[normalize-space()='Add New Subject']
+2026-08-10 11:04:12 | INFO  | p.CommonActions | Entering text 'English' into: By.xpath: //input[@placeholder='Subject Name' or @name='subjectName' or @type='text']
+2026-08-10 11:04:13 | INFO  | p.CommonActions | Uploading file: D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-10 11:04:19 | INFO  | p.CommonActions | File uploaded successfully: Health.png
+2026-08-10 11:04:22 | INFO  | p.CommonActions | Uploaded image verified successfully.
+2026-08-10 11:04:28 | INFO  | p.CommonActions | Clicking element: By.xpath: //div[contains(@class,'modal-actions')]//button[@type='button' and .//span[normalize-space()='Add Subject']]
+2026-08-10 11:04:28 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //div[contains(@class,'modal-actions')]//button[@type='button' and .//span[normalize-space()='Add Subject']]
+2026-08-10 11:04:31 | INFO  | p.CommonActions | Verify text | Expected: 'Subject created successfully' | Actual: 'Subject created successfully' | Result: true
+2026-08-10 11:04:34 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:04:34 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:04:34 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:04:34 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:04:34 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:04:34 | INFO  | p.CommonActions | Waiting for element to be displayed: By.xpath: //*[normalize-space()='Dashboard']
+2026-08-10 11:04:35 | INFO  | p.CommonActions | Clicking element: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:35 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:35 | INFO  | p.CommonActions | Clicking element: By.xpath: //h3[normalize-space()='English']
+2026-08-10 11:04:36 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //h3[normalize-space()='English']
+2026-08-10 11:04:36 | INFO  | p.CommonActions | Clicking element: By.xpath: //span[contains(text(),'Add New Level')]
+2026-08-10 11:04:37 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //span[contains(text(),'Add New Level')]
+2026-08-10 11:04:37 | INFO  | p.CommonActions | Entering text '4' into: By.xpath: //input[@placeholder='Enter Level Number']
+2026-08-10 11:04:37 | INFO  | p.CommonActions | Entering text 'Fourth Grade' into: By.xpath: //input[@placeholder='e.g. Fifth Grade']
+2026-08-10 11:04:37 | INFO  | p.CommonActions | Entering text 'English Basics' into: By.xpath: //textarea[@placeholder='Enter Description']
+2026-08-10 11:04:37 | INFO  | p.CommonActions | Uploading file: D:\MontreCY\com.montrecy.automation\src\main\resources\Health.png
+2026-08-10 11:04:43 | INFO  | p.CommonActions | File uploaded successfully: Health.png
+2026-08-10 11:04:46 | INFO  | p.CommonActions | Uploaded image verified successfully.
+2026-08-10 11:04:52 | INFO  | p.CommonActions | Clicking element: By.xpath: //div[@class='modal-actions']//span[normalize-space()='Add New Level']
+2026-08-10 11:04:52 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //div[@class='modal-actions']//span[normalize-space()='Add New Level']
+2026-08-10 11:04:58 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:04:58 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:04:58 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:04:58 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:04:58 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:04:58 | INFO  | p.CommonActions | Waiting for element to be displayed: By.xpath: //*[normalize-space()='Dashboard']
+2026-08-10 11:04:59 | INFO  | p.CommonActions | Clicking element: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:59 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:04:59 | INFO  | p.CommonActions | Element displayed: By.xpath: //*[normalize-space()='Subjects'] | Result: true
+2026-08-10 11:04:59 | INFO  | p.CommonActions | Clicking element: By.xpath: //h3[normalize-space()='English']
+2026-08-10 11:05:00 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //h3[normalize-space()='English']
+2026-08-10 11:05:00 | INFO  | p.CommonActions | Clicking element: By.xpath: //img[contains(@class,'level-card-image') and @alt='Fourth Grade']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //img[contains(@class,'level-card-image') and @alt='Fourth Grade']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Clicking element: By.xpath: //button[@class='tab active']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //button[@class='tab active']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Clicking element: By.xpath: //span[normalize-space()='+ Add Your First Chapter']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //span[normalize-space()='+ Add Your First Chapter']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Waiting for element to be displayed: By.xpath: //h2[normalize-space()='Add New Chapter']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Entering text '1' into: By.xpath: //input[@placeholder='e.g. 1']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Entering text 'Alphabet and Letters' into: By.xpath: //input[@placeholder='e.g. Introduction']
+2026-08-10 11:05:01 | INFO  | p.CommonActions | Entering text 'Introduction to English letters' into: By.xpath: //textarea[@placeholder='Enter Description']
+2026-08-10 11:05:02 | INFO  | p.CommonActions | Clicking element: By.xpath: //span[normalize-space()='Add Chapter']
+2026-08-10 11:05:02 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //span[normalize-space()='Add Chapter']
+2026-08-10 11:05:11 | INFO  | p.CommonActions | Starting video upload: D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-10 11:05:11 | INFO  | p.CommonActions | Starting video upload: D:\MontreCY\com.montrecy.automation\src\main\resources\HealthIntro.mp4
+2026-08-10 11:05:11 | INFO  | p.CommonActions | Clicking element: By.xpath: //span[normalize-space()='Choose Video']
+2026-08-10 11:05:11 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //span[normalize-space()='Choose Video']
+2026-08-10 11:05:18 | INFO  | p.CommonActions | Video uploaded successfully: HealthIntro.mp4
+2026-08-10 11:05:18 | INFO  | p.CommonActions | Entering text '"Which letter comes after A?"' into: By.xpath: //input[@placeholder='e.g. What percentage of income is recommended for savings?']
+2026-08-10 11:05:41 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:05:41 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:05:42 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:05:42 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:05:42 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:05:42 | INFO  | p.CommonActions | Waiting for element to be displayed: By.xpath: //*[normalize-space()='Dashboard']
+2026-08-10 11:05:42 | INFO  | p.CommonActions | Clicking element: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:05:42 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //*[normalize-space()='Content']
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Element displayed: By.xpath: //*[normalize-space()='Subjects'] | Result: true
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Clicking element: By.xpath: //button[normalize-space()='Add New Subject']
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //button[normalize-space()='Add New Subject']
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Submitting form for field validation.
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Clicking element: By.xpath: //div[contains(@class,'modal-actions')]//button[@type='button' and .//span[normalize-space()='Add Subject']]
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Element clicked successfully: By.xpath: //div[contains(@class,'modal-actions')]//button[@type='button' and .//span[normalize-space()='Add Subject']]
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Validating field error message. Expected: 'Subject name is required'
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Verify text | Expected: 'Subject name is required' | Actual: 'Subject name is required' | Result: true
+2026-08-10 11:05:43 | INFO  | p.CommonActions | Field validation passed: 'Subject name is required'
+2026-08-10 11:05:45 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:45 | INFO  | test.LoginTest  | TEST CASE : TC_001 - Verify Admin Login and Dashboard Title
+2026-08-10 11:05:45 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:45 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-10 11:05:45 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:05:45 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:05:45 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:05:45 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:05:45 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:05:45 | INFO  | test.LoginTest  | STEP 2 : Validate Dashboard page
+2026-08-10 11:05:45 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-10 11:05:46 | INFO  | test.LoginTest  | STEP 3 : Validate Dashboard title
+2026-08-10 11:05:46 | INFO  | p.DashboardPage | Getting Dashboard title.
+2026-08-10 11:05:46 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-10 11:05:46 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:48 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:48 | INFO  | test.LoginTest  | TEST CASE : TC_002 - Verify Admin Logout
+2026-08-10 11:05:48 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:48 | INFO  | test.LoginTest  | STEP 1 : Login to MontreCY Admin Portal
+2026-08-10 11:05:48 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:05:48 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:05:49 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:05:49 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:05:49 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:05:49 | INFO  | test.LoginTest  | STEP 2 : Logout from MontreCY Admin Portal
+2026-08-10 11:05:49 | INFO  | p.DashboardPage | Starting Logout process.
+2026-08-10 11:05:49 | INFO  | p.DashboardPage | Clicked User Avatar.
+2026-08-10 11:05:50 | INFO  | p.DashboardPage | Logout completed successfully.
+2026-08-10 11:05:50 | INFO  | test.LoginTest  | STEP 3 : Validate Login page
+2026-08-10 11:05:50 | INFO  | p.LoginPage     | Verifying Login page.
+2026-08-10 11:05:50 | INFO  | test.LoginTest  | TEST RESULT : PASSED
+2026-08-10 11:05:50 | INFO  | test.LoginTest  | ============================================================
+2026-08-10 11:05:52 | INFO  | t.DashboardTest | ============================================================
+2026-08-10 11:05:52 | INFO  | t.DashboardTest | TEST CASE : TC_003 - Verify Platform Pulse KPI Cards
+2026-08-10 11:05:52 | INFO  | t.DashboardTest | ============================================================
+2026-08-10 11:05:52 | INFO  | t.DashboardTest | STEP 1 : Login to MontreCY Admin Portal
+2026-08-10 11:05:52 | INFO  | p.LoginPage     | Starting Login Process.
+2026-08-10 11:05:52 | INFO  | p.LoginPage     | Entering Email.
+2026-08-10 11:05:52 | INFO  | p.LoginPage     | Entering Password.
+2026-08-10 11:05:52 | INFO  | p.LoginPage     | Clicking Login button.
+2026-08-10 11:05:52 | INFO  | p.LoginPage     | Login completed successfully.
+2026-08-10 11:05:52 | INFO  | t.DashboardTest | STEP 2 : Validate Dashboard page
+2026-08-10 11:05:52 | INFO  | p.DashboardPage | Verifying Dashboard page.
+2026-08-10 11:05:53 | INFO  | t.DashboardTest | STEP 3 : Validate Platform Pulse KPI Cards
+2026-08-10 11:05:53 | INFO  | p.DashboardPage | Verifying Total Users card.
+2026-08-10 11:05:53 | INFO  | p.DashboardPage | Verifying New Subscriptions card.
+2026-08-10 11:05:53 | INFO  | p.DashboardPage | Verifying Revenue card.
+2026-08-10 11:05:53 | INFO  | p.DashboardPage | Verifying Churn Rate card.
+2026-08-10 11:05:53 | INFO  | p.DashboardPage | Verifying DAU card.
+2026-08-10 11:05:53 | INFO  | t.DashboardTest | TEST RESULT : PASSED
+2026-08-10 11:05:53 | INFO  | t.DashboardTest | ============================================================
+2026-08-10 11:05:54 | INFO  | u.TestListener  | 
+2026-08-10 11:05:54 | INFO  | u.TestListener  | ============================================================
+2026-08-10 11:05:54 | INFO  | u.TestListener  | TEST EXECUTION SUMMARY
+2026-08-10 11:05:54 | INFO  | u.TestListener  | ------------------------------------------------------------
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Suite       : Default Suite
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Total Tests : 8
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Passed      : 6
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Failed      : 1
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Skipped     : 1
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Pass Rate   : 75.00%
+2026-08-10 11:05:54 | INFO  | u.TestListener  | Duration    : 107 sec
+2026-08-10 11:05:54 | INFO  | u.TestListener  | ============================================================

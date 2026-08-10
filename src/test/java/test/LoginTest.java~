@@ -1,7 +1,6 @@
 package test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,8 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboardPage = new DashboardPage(driver);
 
-//        HashMap<String, String> data = testData.get(0);
-        Map<String, String> data = environmentData.get(0);
+        HashMap<String, String> data = testData.get(0);
+
         logger.info("STEP 1 : Login to MontreCY Admin Portal");
 
         loginPage.login(
@@ -65,8 +64,8 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         DashboardPage dashboardPage = new DashboardPage(driver);
 
-//        HashMap<String, String> data = testData.get(0);
-        Map<String, String> data = environmentData.get(0);
+        HashMap<String, String> data = testData.get(0);
+
         logger.info("STEP 1 : Login to MontreCY Admin Portal");
 
         loginPage.login(

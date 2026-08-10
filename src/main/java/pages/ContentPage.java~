@@ -171,7 +171,7 @@ public class ContentPage {
 
     public void addQuizQuestion(String subjectName, String grade, String question, String option1Data, String option2Data, String option3Data, String option4Data, String explanation) {
 
-
+//        commonActions.click(getSubjectLocator(subjectName));
         commonActions.click(getSubjectLocator(subjectName));
         commonActions.sleepThreeSeconds();
 

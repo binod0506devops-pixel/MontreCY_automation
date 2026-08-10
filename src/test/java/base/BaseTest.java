@@ -1,8 +1,9 @@
-package base;
+
+        package base;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -15,42 +16,39 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import utils.ExcelUtils;
+import utils.CsvReader;
 
 public class BaseTest {
 
-
-
-    private static final Logger logger =
-            LogManager.getLogger(BaseTest.class);
+    private static final Logger logger = LogManager.getLogger(BaseTest.class);
 
     public static WebDriver driver;
     protected WebDriverWait wait;
 
-    // Stores Excel test data
-    protected List<HashMap<String, String>> testData;
+    // Environment data
+    protected List<Map<String, String>> environmentData;
 
-    /**
-     * Setup browser before every test execution
-     */
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
 
-        // Load Excel data
-        testData = ExcelUtils.getTestData();
+        // Load environment data from CSV
+        environmentData = CsvReader.read(
+                "testdata/environment.csv"
+        );
 
-        if (testData == null || testData.isEmpty()) {
-            throw new RuntimeException("No test data found in Excel file");
+        if (environmentData == null || environmentData.isEmpty()) {
+            throw new RuntimeException("No environment data found in CSV file");
         }
 
-        String browser = testData.get(0).get("Browser");
-        String url = testData.get(0).get("URL");
+        Map<String, String> data = environmentData.get(0);
+
+        String browser = data.get("Browser");
+        String url = data.get("URL");
 
         logger.info("====================================");
         logger.info("Starting Test Execution");
         logger.info("Browser : {}", browser);
         logger.info("URL     : {}", url);
-        logger.info("Users   : {}", testData.size());
         logger.info("====================================");
 
         // Initialize browser
@@ -60,7 +58,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 
-        // Explicit Wait
+        // Explicit wait
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         // Maximize only for local execution
@@ -75,15 +73,12 @@ public class BaseTest {
             }
         }
 
-        // Open Application
+        // Open application
         driver.get(url);
 
         logger.info("Application Opened : {}", driver.getCurrentUrl());
     }
 
-    /**
-     * Creates WebDriver based on browser
-     */
     private WebDriver createDriver(String browser) {
 
         WebDriverManager.chromedriver().setup();
@@ -107,23 +102,14 @@ public class BaseTest {
         throw new RuntimeException("Unsupported browser : " + browser);
     }
 
-    /**
-     * Returns WebDriver instance
-     */
     public WebDriver getDriver() {
         return driver;
     }
 
-    /**
-     * Returns Excel test data
-     */
-    public List<HashMap<String, String>> getTestData() {
-        return testData;
+    public List<Map<String, String>> getEnvironmentData() {
+        return environmentData;
     }
 
-    /**
-     * Close browser after every test execution
-     */
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
 
@@ -133,3 +119,4 @@ public class BaseTest {
         }
     }
 }
+

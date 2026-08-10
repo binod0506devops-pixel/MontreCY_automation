@@ -1,0 +1,52 @@
+package utils;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class CsvReader {
+
+    public static List<Map<String, String>> read(String filePath) {
+
+        List<Map<String, String>> data = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            String headerLine = reader.readLine();
+
+            if (headerLine == null) {
+                return data;
+            }
+
+            String[] headers = headerLine.split(",", -1);
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] values = line.split(",", -1);
+
+                Map<String, String> row = new HashMap<>();
+
+                for (int i = 0; i < headers.length; i++) {
+                    row.put(
+                            headers[i].trim(),
+                            i < values.length ? values[i].trim() : ""
+                    );
+                }
+
+                data.add(row);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Failed to read CSV file: " + filePath, e
+            );
+        }
+
+        return data;
+    }
+}
