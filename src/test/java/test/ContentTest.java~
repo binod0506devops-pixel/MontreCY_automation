@@ -20,32 +20,32 @@ import java.util.Map;
 @Listeners(TestListener.class)
 public class ContentTest extends BaseTest {
     private static final Logger logger = LoggerFactory.getLogger(CommonActions.class);
-
-    @Test(description = " TC_SUB_005 - Create Subject with Valid Name")
-    public void verifyAddNewSubject() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = contentData.get(0);
-        String subjectName = data.get("SubjectName");
-        String imageName = data.get("ImageName");
-        String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", imageName).toString();
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
-        contentPage.clickContent();
-
-        Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page not displayed.");
-
-        contentPage.clickAddNewSubject();
-        contentPage.addNewSubject(subjectName, imagePath);
-
-        Assert.assertTrue(contentPage.verifyToastMessage("Subject created successfully"),
-                "Subject creation success message was not displayed.");
-    }
+//
+//    @Test(description = " TC_SUB_005 - Create Subject with Valid Name")
+//    public void verifyAddNewSubject() {
+//        LoginPage loginPage = new LoginPage(driver);
+//        ContentPage contentPage = new ContentPage(driver);
+//
+//        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
+//        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
+//
+//        Map<String, String> data = contentData.get(0);
+//        String subjectName = data.get("SubjectName");
+//        String imageName = data.get("ImageName");
+//        String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", imageName).toString();
+//
+//        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
+//        contentPage.waitForDashboard();
+//        contentPage.clickContent();
+//
+//        Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page not displayed.");
+//
+//        contentPage.clickAddNewSubject();
+//        contentPage.addNewSubject(subjectName, imagePath);
+//
+//        Assert.assertTrue(contentPage.verifyToastMessage("Subject created successfully"),
+//                "Subject creation success message was not displayed.");
+//    }
 
 
     @Test(

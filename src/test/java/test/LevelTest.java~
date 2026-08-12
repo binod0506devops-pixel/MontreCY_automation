@@ -112,7 +112,7 @@ public class LevelTest extends BaseTest {
             String subjectName = data.get("SubjectName");
             String editLevelNumber = data.get("EditLevelNumber");
             String editLevelName = data.get("Edit Level Name");
-           String editDescription = data.get("Edit Description");
+            String editDescription = data.get("Edit Description");
             String editImageName = data.get("Edit Image");
 
             validateRequired("SubjectName", subjectName);

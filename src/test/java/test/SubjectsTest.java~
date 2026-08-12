@@ -72,19 +72,19 @@ public class SubjectsTest extends BaseTest {
             Assert.assertTrue(subjectsPage.verifyToastMessage("Subject created successfully"), "Subject creation failed for subject: " + subjectName);
             logger.info("CREATE | Subject created successfully: {}", subjectName);
 
-//            logger.info("UPDATE | Updating subject: {} -> {}", subjectName, updatedSubjectName);
-//            subjectsPage.editSubject(subjectName, updatedSubjectName, updatedImagePath);
-//
-//            logger.info("UPDATE | Verifying toast message: 'Subject updated successfully'");
-//            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject updated successfully"), "Subject update failed for subject: " + subjectName);
-//            logger.info("UPDATE | Subject updated successfully: {} -> {}", subjectName, updatedSubjectName);
-//
+            logger.info("UPDATE | Updating subject: {} -> {}", subjectName, updatedSubjectName);
+            subjectsPage.editSubject(subjectName, updatedSubjectName, updatedImagePath);
+
+            logger.info("UPDATE | Verifying toast message: 'Subject updated successfully'");
+            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject updated successfully"), "Subject update failed for subject: " + subjectName);
+            logger.info("UPDATE | Subject updated successfully: {} -> {}", subjectName, updatedSubjectName);
+
 //            logger.info("DELETE | Deleting subject: {}", updatedSubjectName);
 //            subjectsPage.deleteSubject(updatedSubjectName);
-//
-//            logger.info("DELETE | Verifying toast message: 'Subject deleted successfully'");
-//            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject deleted successfully"), "Subject deletion failed for subject: " + updatedSubjectName);
-//            logger.info("DELETE | Subject deleted successfully: {}", updatedSubjectName);
+
+            logger.info("DELETE | Verifying toast message: 'Subject deleted successfully'");
+            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject deleted successfully"), "Subject deletion failed for subject: " + updatedSubjectName);
+            logger.info("DELETE | Subject deleted successfully: {}", updatedSubjectName);
         }
 
         logger.info("TC_SUBJECT_004 PASSED | Subject Create, Update and Delete verification completed successfully");

@@ -16,7 +16,7 @@ public class ContentPage {
     private static final Logger logger = LoggerFactory.getLogger(CommonActions.class);
 
 // ==================== Dashboard / Content Page ====================
-    private final By dashboardText = By.xpath("//*[normalize-space()='Dashboard']");
+private final By dashboardText = By.xpath("//*[normalize-space()='Dashboard']");
     private final By contentMenu = By.xpath("//*[normalize-space()='Content']");
     private final By subjectsPage = By.xpath("//*[normalize-space()='Subjects']");
 // ==================== Add New Subject ====================
@@ -81,7 +81,16 @@ public class ContentPage {
     private final By easyDifficulty = By.xpath("//*[normalize-space()='Easy']");
     private final By explanationTextArea = By.xpath("//label[normalize-space()='Explanation (Optional)']/following-sibling::textarea");
     private final By submitQuestionButton = By.xpath("//button[.//span[normalize-space()='Submit Question']]");
-
+    // ==================== Activity ====================
+    private final By activityTab = By.xpath("//button[contains(text(),'Activity')]");
+    private final By activityContentEditor = By.xpath("//h2[contains(text(),'📚 Activity Content Editor')]");
+    private final By activityTitle = By.xpath("//input[contains(@placeholder,'Enter activity title...')]");
+    private final By activityTextButton = By.xpath("//button[contains(@title,'Text')]");
+    private final By activityTextEditor = By.xpath("(//div[@contenteditable='true' and contains(@class,'ql-editor')])[1]");
+    private final By activityImageButton = By.xpath("//button[contains(.,'Image')]");
+    private final By activityImageUpload = By.xpath("//span[text()='Click to upload image']");
+    private final By activitySubmitButton = By.xpath("//span[normalize-space()='Submit']");
+//    private final By activityTextEditor = By.xpath("(//div[@contenteditable='true' and contains(@class,'ql-editor')])[1]");
     private By getSubjectLocator(String subjectName) {
         return By.xpath("//h3[normalize-space()='" + subjectName + "']"); }
 
@@ -102,6 +111,7 @@ public class ContentPage {
 
         commonActions.click(addNewSubjectButton);
     }
+
     public boolean verifyToastMessage(String expectedMessage) {
 
         return commonActions.verifyText(
@@ -111,6 +121,7 @@ public class ContentPage {
     }
     public void addNewSubject(String subjectName, String imagePath) {
         commonActions.enterText(subjectNameInput, subjectName);
+        commonActions.sleepThreeSeconds();
         commonActions.uploadFile(fileInput, uploadedImage, null, imagePath);
         commonActions.sleepThreeSeconds();
         commonActions.click(addSubjectButton);
@@ -123,6 +134,7 @@ public class ContentPage {
         commonActions.enterText(levelNumberTextBox, levelNumber);
         commonActions.enterText(gradeTextBox, grade);
         commonActions.enterText(descriptionTextArea, description);
+        commonActions.sleepThreeSeconds();
         commonActions.uploadFile(fileInput, uploadedImage, null, imagePath);
         commonActions.sleepThreeSeconds();
         commonActions.click(saveLevelButton);
@@ -130,11 +142,8 @@ public class ContentPage {
     }
     public void addNewChapter(String subjectName, String grade, String chapterNumber, String chapterTitle, String chapterDescription, String videoPath, String imagePath, String content, String outcome1, String outcome2, String outcome3, String triviaQuestionData, String triviaOptionAData, String triviaOptionBData, String triviaOptionCData, String triviaOptionDData, String triviaContentData) throws InterruptedException, AWTException {
         commonActions.click(getSubjectLocator(subjectName));
-        //commonActions.sleepThreeSeconds();
         commonActions.click(getLevelLocator(grade));
-       // commonActions.sleepThreeSeconds();
         commonActions.click(theoryVideoTab);
-       // commonActions.sleepThreeSeconds();
         commonActions.click(addYourFirstChapter);
         commonActions.waitForElementToBeDisplayed(addNewChapterTitle);
         commonActions.enterText(chapterNumberTextBox, chapterNumber);
@@ -200,10 +209,6 @@ public class ContentPage {
         commonActions.enterText(option4, option4Data);
 
         commonActions.click(correctOption1);
-
-//        commonActions.click(applicableDropdown);
-//        commonActions.sleepThreeSeconds();
-
         commonActions.click(allOption);
         commonActions.sleepThreeSeconds();
 
@@ -222,7 +227,39 @@ public class ContentPage {
 
         commonActions.sleepThreeSeconds();
     }
+    public void addActivity(String subjectName, String grade, String activityTitleData, String activityText) {
+        commonActions.click(getSubjectLocator(subjectName));
+        commonActions.sleepThreeSeconds();
 
+        commonActions.click(getLevelLocator(grade));
+        commonActions.sleepThreeSeconds();
+
+        commonActions.click(activityTab);
+        commonActions.sleepThreeSeconds();
+
+        commonActions.waitForElementToBeDisplayed(activityContentEditor);
+
+        commonActions.enterText(activityTitle, activityTitleData);
+
+        commonActions.click(activityTextButton);
+        commonActions.sleepThreeSeconds();
+
+        WebElement editor = commonActions.getElement(activityTextEditor);
+        commonActions.scrollToElement(editor);
+        editor.click();
+        editor.sendKeys(activityText);
+
+        commonActions.sleepThreeSeconds();
+        commonActions.sleepThreeSeconds();
+        commonActions.click(activityImageButton);
+        commonActions.sleepThreeSeconds();
+        commonActions.sleepThreeSeconds();
+        commonActions.click(activityImageUpload);
+        commonActions.sleepThreeSeconds();
+        commonActions.sleepThreeSeconds();
+        commonActions.click(activitySubmitButton);
+        commonActions.sleepThreeSeconds();
+    }
 
     public void addTriviaQuestion(String question, String optionA, String optionB, String optionC, String optionD, String triviaContentData) {
         commonActions.enterText(triviaQuestion, question);
@@ -240,7 +277,9 @@ public class ContentPage {
         editor.click();
         editor.sendKeys(triviaContentData);
     }
-
+    public boolean isSubjectDisplayed(String subjectName) {
+        return commonActions.isDisplayed(getSubjectLocator(subjectName));
+    }
     public boolean validateSubjectNameRequired() {
 
         return commonActions.validateField(

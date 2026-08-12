@@ -77,8 +77,7 @@ public class LevelPage {
         commonActions.sleepThreeSeconds();
         commonActions.uploadFile(fileInput, uploadedImage, null, imagePath);
         commonActions.sleepThreeSeconds();
-//        commonActions.click(editButton);
-        commonActions.sleepThreeSeconds();
+        commonActions.click(editButton);
         commonActions.click(updateLevelButton);
     }
 }

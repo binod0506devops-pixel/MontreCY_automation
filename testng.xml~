@@ -21,7 +21,7 @@
         </classes>
     </test>
 
-    <test name="03 LevelTest">
+    <test name="03 Subjects">
         <classes>
             <class name="test.LevelTest"/>
         </classes>
