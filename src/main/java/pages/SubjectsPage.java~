@@ -62,7 +62,6 @@ public class SubjectsPage {
         commonActions.uploadFile(fileInput, uploadedImage, imagePath);
         commonActions.sleepTwoSeconds();
         commonActions.click(addSubjectButton);
-        commonActions.sleepTwoSeconds();
 
 
 

@@ -1,5 +1,7 @@
 package test;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -7,6 +9,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
+import pages.DashboardPage;
+import pages.LoginPage;
 import utils.TestListener;
 
 @Listeners(TestListener.class)
@@ -16,7 +20,30 @@ public class DashboardTest extends BaseTest {
 
     @Test(description = "TC_003 - Verify Platform Pulse KPI Cards")
     public void verifyPlatformPulseCards() {
-        loginAndNavigate();
+
+        logger.info("Starting TC_003 - Verify Platform Pulse KPI Cards");
+
+        LoginPage loginPage = new LoginPage(driver);
+        DashboardPage dashboardPage = new DashboardPage(driver);
+
+        Map<String, String> data = environmentData.get(0);
+
+        String username = data.get("Username");
+        String password = data.get("Password");
+
+        Assert.assertNotNull(username, "Username is missing from environment data.");
+        Assert.assertNotNull(password, "Password is missing from environment data.");
+        Assert.assertFalse(username.trim().isEmpty(), "Username is empty.");
+        Assert.assertFalse(password.trim().isEmpty(), "Password is empty.");
+
+        logger.info("Logging into MontreCY Admin Portal.");
+
+        loginPage.login(username, password);
+
+        Assert.assertTrue(
+                dashboardPage.isDashboardDisplayed(),
+                "Dashboard is not displayed."
+        );
 
         Assert.assertEquals(
                 dashboardPage.getDashboardTitle(),
@@ -49,6 +76,6 @@ public class DashboardTest extends BaseTest {
                 "DAU card is missing."
         );
 
-        logger.info("TC_003 PASSED");
+        logger.info("TC_003 completed successfully.");
     }
 }

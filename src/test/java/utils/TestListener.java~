@@ -63,10 +63,11 @@ public class TestListener implements ITestListener {
 
         long duration = (System.currentTimeMillis() - startTime) / 1000;
 
-        int total = context.getAllTestMethods().length;
         int passed = context.getPassedTests().size();
         int failed = context.getFailedTests().size();
         int skipped = context.getSkippedTests().size();
+
+        int total = passed + failed + skipped;
 
         double passRate = total > 0
                 ? (passed * 100.0) / total

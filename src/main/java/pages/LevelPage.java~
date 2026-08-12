@@ -1,9 +1,13 @@
 package pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class LevelPage {
+
+    private static final Logger logger = LogManager.getLogger(LevelPage.class);
 
     private final WebDriver driver;
     private final CommonActions commonActions;
@@ -19,65 +23,84 @@ public class LevelPage {
     private final By activeButton = By.xpath("//span[normalize-space()='Active']");
     private final By inactiveButton = By.xpath("//span[normalize-space()='Inactive']");
     private final By toastMessage = By.xpath("//*[contains(@class,'toast')]");
-    public LevelPage(WebDriver driver) { this.driver = driver; this.commonActions = new CommonActions(driver); }
     private final By editLevelDetails = By.xpath("//div[normalize-space()='Edit Level Details']");
     private final By editLevelNumberTextBox = By.xpath("//input[@placeholder='Enter Level Number']");
     private final By editLevelNameTextBox = By.xpath("//input[@placeholder='e.g. Fifth Grade']");
     private final By editDescriptionTextArea = By.xpath("//textarea[@placeholder='Enter Description']");
-    private final By editButton = By.xpath("//span[normalize-space()='Edit']");
     private final By updateLevelButton = By.xpath("//span[normalize-space()='Update Level']");
-    private By getLevelLocator(String grade) { return By.xpath("//img[contains(@class,'level-card-image') and @alt='" + grade + "']"); }
-    private By getSubjectLocator(String subjectName) { return By.xpath("//h3[normalize-space()='" + subjectName + "']"); }
 
+    public LevelPage(WebDriver driver) {
+        this.driver = driver;
+        this.commonActions = new CommonActions(driver);
+    }
     public void addNewLevel(String subjectName, String levelNumber, String grade, String description, String imagePath) {
-        commonActions.click(getSubjectLocator(subjectName));
+        logger.info("Creating Level [{}] for Subject [{}]", levelNumber, subjectName);
+        openSubject(subjectName);
         commonActions.click(addNewLevelButton);
         commonActions.enterText(levelNumberTextBox, levelNumber);
         commonActions.enterText(gradeTextBox, grade);
         commonActions.enterText(descriptionTextArea, description);
-        commonActions.sleepThreeSeconds();
-        commonActions.uploadFile(fileInput, uploadedImage, null, imagePath);
-        commonActions.sleepThreeSeconds();
+        commonActions.uploadFile(fileInput, uploadedImage, imagePath);
         commonActions.click(saveLevelButton);
-        commonActions.sleepThreeSeconds();
+        logger.info("Level [{}] creation submitted.", levelNumber);
     }
 
-    public boolean isLevelAlreadyExists() { return commonActions.isDisplayed(levelExistsError); }
+    public boolean isLevelAlreadyExists() {
+        return commonActions.isDisplayed(levelExistsError);
+    }
 
-    public void clickLevel(String grade) { commonActions.click(getLevelLocator(grade)); }
-    public void clickSubject(String subjectName) { commonActions.click(getSubjectLocator(subjectName)); }
+    public void openSubject(String subjectName) {
+        logger.info("Opening Subject [{}]", subjectName);
+        commonActions.click(getSubjectLocator(subjectName));
+    }
 
-    public void clickActive() {
-        commonActions.sleepThreeSeconds();
+    public void clickLevel(String grade) {
+        commonActions.click(getLevelLocator(grade));
+    }
+
+    public void setActive() {
+        logger.info("Changing Level status to Active");
         commonActions.click(activeButton);
-        commonActions.sleepThreeSeconds();
     }
 
-    public void clickInactive() {
-        commonActions.sleepThreeSeconds();
+    public void setInactive() {
+        logger.info("Changing Level status to Inactive");
         commonActions.click(inactiveButton);
-        commonActions.sleepThreeSeconds();
     }
 
-    public boolean verifyToastMessage(String message) { return commonActions.verifyText(toastMessage, message); }
+    public boolean verifyToastMessage(String message) {
+        return commonActions.waitForToastText(toastMessage, message);
+    }
+    public void waitForToastToDisappear() {
+        commonActions.waitForToastToDisappear(toastMessage);
+    }
 
+    public void openEditLevel() {
+        logger.info("Opening Edit Level Details");
+        commonActions.click(editLevelDetails);
+    }
 
-    public void clickEditLevelDetails() { commonActions.click(editLevelDetails); }
-
-    public boolean isEditLevelFormDisplayed() {
+    public boolean isEditFormDisplayed() {
         return commonActions.isDisplayed(editLevelNumberTextBox)
                 && commonActions.isDisplayed(editLevelNameTextBox)
                 && commonActions.isDisplayed(editDescriptionTextArea);
     }
 
     public void editLevel(String levelNumber, String levelName, String description, String imagePath) {
+        logger.info("Updating Level [{}]", levelNumber);
         commonActions.enterText(editLevelNumberTextBox, levelNumber);
         commonActions.enterText(editLevelNameTextBox, levelName);
         commonActions.enterText(editDescriptionTextArea, description);
-        commonActions.sleepThreeSeconds();
-        commonActions.uploadFile(fileInput, uploadedImage, null, imagePath);
-        commonActions.sleepThreeSeconds();
-        commonActions.click(editButton);
+        commonActions.uploadFile(fileInput, uploadedImage, imagePath);
         commonActions.click(updateLevelButton);
+        logger.info("Level [{}] update submitted.", levelNumber);
+    }
+
+    private By getLevelLocator(String grade) {
+        return By.xpath("//img[contains(@class,'level-card-image') and @alt='" + grade + "']");
+    }
+
+    private By getSubjectLocator(String subjectName) {
+        return By.xpath("//h3[normalize-space()='" + subjectName + "']");
     }
 }

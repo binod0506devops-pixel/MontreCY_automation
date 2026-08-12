@@ -1,143 +1,181 @@
 package test;
 
-import base.BaseTest;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.ContentPage;
-import pages.LoginPage;
-import pages.SubjectsPage;
-import utils.CsvReader;
-import utils.TestListener;
 
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+import base.BaseTest;
+import pages.SubjectsPage;
+import utils.TestDataUtil;
+import utils.TestListener;
 
 @Listeners(TestListener.class)
 public class SubjectsTest extends BaseTest {
 
     private static final Logger logger = LoggerFactory.getLogger(SubjectsTest.class);
-    private LoginPage loginPage;
-    private ContentPage contentPage;
     private SubjectsPage subjectsPage;
 
     @BeforeMethod
     public void initializePages() {
-        loginPage = new LoginPage(driver);
-        contentPage = new ContentPage(driver);
         subjectsPage = new SubjectsPage(driver);
-        logger.info("Page objects initialized successfully.");
     }
+
     @Test(description = "TC_SUBJECT_001 - Verify Subjects Page is Displayed")
     public void verifySubjectsPageDisplayed() {
-        logger.info("TEST CASE : TC_SUBJECT_001 - Verify Subjects Page is Displayed");
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
-        logger.info("VERIFY | Verifying Subjects page title is displayed");
-        boolean isSubjectsPageDisplayed = subjectsPage.isSubjectsTitleDisplayed();
-        logger.info("VERIFY | Subjects page title displayed: {}", isSubjectsPageDisplayed);
-        Assert.assertTrue(isSubjectsPageDisplayed, "Subjects title is not displayed.");
-        logger.info("ASSERT | Subjects page title verification passed");
+
+        Assert.assertTrue(
+                subjectsPage.isSubjectsTitleDisplayed(),
+                "Subjects title is not displayed."
+        );
+
         logger.info("TC_SUBJECT_001 PASSED");
     }
 
-    @Test(description = "TC_SUBJECT_004 - Verify Subject Create, Update and Delete")
-    public void verifySubjectCreateUpdateAndDelete() {
-        logger.info("TEST CASE : TC_SUBJECT_004 - Verify Subject Create, Update and Delete");
-
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        subjectsPage.waitForDashboard();
-        subjectsPage.clickContent();
-        Assert.assertTrue(subjectsPage.isSubjectsTitleDisplayed(), "Subjects page is not displayed.");
-
-        for (Map<String, String> data : contentData) {
-            String subjectName = data.get("SubjectName");
-            String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", data.get("ImageName")).toString();
-            String updatedSubjectName = data.get("UpdatedSubjectName");
-            String updatedImagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", data.get("UpdatedSubjectImage")).toString();
-
-            logger.info("CREATE | Creating subject: {}", subjectName);
-            subjectsPage.clickAddNewSubject();
-            subjectsPage.addNewSubject(subjectName, imagePath);
-
-            logger.info("CREATE | Verifying toast message: 'Subject created successfully'");
-            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject created successfully"), "Subject creation failed for subject: " + subjectName);
-            logger.info("CREATE | Subject created successfully: {}", subjectName);
-
-//            logger.info("UPDATE | Updating subject: {} -> {}", subjectName, updatedSubjectName);
-//            subjectsPage.editSubject(subjectName, updatedSubjectName, updatedImagePath);
-//
-//            logger.info("UPDATE | Verifying toast message: 'Subject updated successfully'");
-//            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject updated successfully"), "Subject update failed for subject: " + subjectName);
-//            logger.info("UPDATE | Subject updated successfully: {} -> {}", subjectName, updatedSubjectName);
-//
-//            logger.info("DELETE | Deleting subject: {}", updatedSubjectName);
-//            subjectsPage.deleteSubject(updatedSubjectName);
-//
-//            logger.info("DELETE | Verifying toast message: 'Subject deleted successfully'");
-//            Assert.assertTrue(subjectsPage.verifyToastMessage("Subject deleted successfully"), "Subject deletion failed for subject: " + updatedSubjectName);
-//            logger.info("DELETE | Subject deleted successfully: {}", updatedSubjectName);
-        }
-
-        logger.info("TC_SUBJECT_004 PASSED | Subject Create, Update and Delete verification completed successfully");
-    }
-
-
     @Test(description = "TC_SUBJECT_002 - Verify Add New Subject Button is Displayed")
     public void verifyAddNewSubjectButtonDisplayed() {
-        logger.info("TEST CASE : TC_SUBJECT_002 - Verify Add New Subject Button is Displayed");
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
-        Assert.assertTrue(subjectsPage.isAddNewSubjectButtonDisplayed(), "Add New Subject button is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isAddNewSubjectButtonDisplayed(),
+                "Add New Subject button is not displayed."
+        );
+
         logger.info("TC_SUBJECT_002 PASSED");
     }
 
     @Test(description = "TC_SUBJECT_003 - Verify Add New Subject Form is Displayed")
     public void verifyAddNewSubjectFormDisplayed() {
-        logger.info("TEST CASE : TC_SUBJECT_003 - Verify Add New Subject Form is Displayed");
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
-        Assert.assertTrue(subjectsPage.isSubjectsTitleDisplayed(), "Subjects page is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isSubjectsTitleDisplayed(),
+                "Subjects page is not displayed."
+        );
+
         subjectsPage.clickAddNewSubject();
-        Assert.assertTrue(subjectsPage.isAddNewSubjectFormDisplayed(), "Add New Subject form is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isAddNewSubjectFormDisplayed(),
+                "Add New Subject form is not displayed."
+        );
+
         logger.info("TC_SUBJECT_003 PASSED");
+    }
+
+    @Test(description = "TC_SUBJECT_004 - Verify Subject Create, Update and Delete")
+    public void verifySubjectCreateUpdateAndDelete() {
+        List<Map<String, String>> contentData = TestDataUtil.loadContentData();
+
+        loginAndNavigate();
+        contentPage.clickContent();
+
+        Assert.assertTrue(
+                subjectsPage.isSubjectsTitleDisplayed(),
+                "Subjects page is not displayed."
+        );
+
+        for (Map<String, String> data : contentData) {
+            String subjectName = TestDataUtil.getRequiredValue(data, "SubjectName");
+            String imagePath = TestDataUtil.getResourcePath(
+                    TestDataUtil.getRequiredValue(data, "ImageName")
+            );
+            String updatedSubjectName = TestDataUtil.getRequiredValue(
+                    data,
+                    "UpdatedSubjectName"
+            );
+            String updatedImagePath = TestDataUtil.getResourcePath(
+                    TestDataUtil.getRequiredValue(data, "UpdatedSubjectImage")
+            );
+
+            subjectsPage.clickAddNewSubject();
+            subjectsPage.addNewSubject(subjectName, imagePath);
+
+            Assert.assertTrue(
+                    subjectsPage.verifyToastMessage("Subject created successfully"),
+                    "Subject creation failed for subject: " + subjectName
+            );
+
+            /*
+            subjectsPage.editSubject(
+                    subjectName,
+                    updatedSubjectName,
+                    updatedImagePath
+            );
+
+            Assert.assertTrue(
+                    subjectsPage.verifyToastMessage("Subject updated successfully"),
+                    "Subject update failed for subject: " + subjectName
+            );
+
+            subjectsPage.deleteSubject(updatedSubjectName);
+
+            Assert.assertTrue(
+                    subjectsPage.verifyToastMessage("Subject deleted successfully"),
+                    "Subject deletion failed for subject: " + updatedSubjectName
+            );
+            */
+        }
+
+        logger.info("TC_SUBJECT_004 PASSED");
     }
 
     @Test(description = "TC_SUBJECT_005 - Verify Subject Name Mandatory Validation")
     public void verifySubjectNameMandatoryValidation() {
-        logger.info("TEST CASE : TC_SUBJECT_005 - Verify Subject Name Mandatory Validation");
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
-        Assert.assertTrue(subjectsPage.isSubjectsTitleDisplayed(), "Subjects page is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isSubjectsTitleDisplayed(),
+                "Subjects page is not displayed."
+        );
+
         subjectsPage.clickAddNewSubject();
-        Assert.assertTrue(subjectsPage.validateSubjectNameRequired(), "Subject name required validation message was not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.validateSubjectNameRequired(),
+                "Subject name required validation message was not displayed."
+        );
+
         logger.info("TC_SUBJECT_005 PASSED");
     }
 
     @Test(description = "TC_SUBJECT_011 - Verify Edit Subject Screen and Actions")
     public void verifyEditSubjectScreenAndActions() {
-        logger.info("TEST CASE : TC_SUBJECT_011 - Verify Edit Subject Screen and Actions");
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
-        Assert.assertTrue(subjectsPage.isSubjectsTitleDisplayed(), "Subjects page is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isSubjectsTitleDisplayed(),
+                "Subjects page is not displayed."
+        );
+
         subjectsPage.clickEditSubject();
-        Assert.assertTrue(subjectsPage.isEditSubjectDisplayed(), "Edit Subject screen is not displayed.");
-        Assert.assertTrue(subjectsPage.isCancelButtonDisplayed(), "Cancel button is not displayed.");
-        Assert.assertTrue(subjectsPage.isUpdateSubjectButtonDisplayed(), "Update Subject button is not displayed.");
+
+        Assert.assertTrue(
+                subjectsPage.isEditSubjectDisplayed(),
+                "Edit Subject screen is not displayed."
+        );
+
+        Assert.assertTrue(
+                subjectsPage.isCancelButtonDisplayed(),
+                "Cancel button is not displayed."
+        );
+
+        Assert.assertTrue(
+                subjectsPage.isUpdateSubjectButtonDisplayed(),
+                "Update Subject button is not displayed."
+        );
+
         logger.info("TC_SUBJECT_011 PASSED");
     }
-
-
 }

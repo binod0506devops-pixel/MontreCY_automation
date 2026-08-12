@@ -21,16 +21,16 @@
         </classes>
     </test>
 
-    <test name="03 Subjects">
+    <test name="03 LevelTest">
         <classes>
             <class name="test.LevelTest"/>
         </classes>
     </test>
 
-<!--    <test name="04 Content">-->
-<!--        <classes>-->
-<!--            <class name="test.ContentTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="04 Content">
+        <classes>
+            <class name="test.ContentTest"/>
+        </classes>
+    </test>
 
 </suite>

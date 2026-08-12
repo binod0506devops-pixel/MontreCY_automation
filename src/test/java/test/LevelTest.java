@@ -1,144 +1,161 @@
 package test;
 
-import base.BaseTest;
-import org.testng.Assert;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
-import pages.ContentPage;
-import pages.LevelPage;
-import pages.LoginPage;
-import utils.CsvReader;
-import utils.TestListener;
-
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import base.BaseTest;
+import pages.LevelPage;
+import utils.TestDataUtil;
+import utils.TestListener;
 
 @Listeners(TestListener.class)
 public class LevelTest extends BaseTest {
 
+    private static final Logger logger = LogManager.getLogger(LevelTest.class);
+    private LevelPage levelPage;
+
+    @BeforeMethod
+    public void initializePages() {
+        levelPage = new LevelPage(driver);
+    }
+
     @Test(description = "TC_LEVEL_001 - Create Level with Valid Details")
     public void verifyAddNewLevel() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-        LevelPage levelPage = new LevelPage(driver);
+        List<Map<String, String>> contentData = TestDataUtil.loadContentData();
 
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
+
         Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page is not displayed.");
 
         for (Map<String, String> data : contentData) {
-            String subjectName = data.get("SubjectName");
-            String levelNumber = data.get("LevelNumber");
-            String grade = data.get("Grade");
-            String description = data.get("Description");
-            String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", data.get("ImageName")).toString();
-
-            validateRequired("SubjectName", subjectName);
-            validateRequired("LevelNumber", levelNumber);
-            validateRequired("Grade", grade);
-            validateRequired("Description", description);
+            String subjectName = TestDataUtil.getRequiredValue(data, "SubjectName");
+            String levelNumber = TestDataUtil.getRequiredValue(data, "LevelNumber");
+            String grade = TestDataUtil.getRequiredValue(data, "Grade");
+            String description = TestDataUtil.getRequiredValue(data, "Description");
+            String imagePath = TestDataUtil.getResourcePath(
+                    TestDataUtil.getRequiredValue(data, "ImageName")
+            );
 
             if (!contentPage.isSubjectDisplayed(subjectName)) {
                 contentPage.clickAddNewSubject();
                 contentPage.addNewSubject(subjectName, imagePath);
 
-                if (!contentPage.verifyToastMessage("A subject with this title already exists. Please choose a different title.")) {
-                    Assert.assertTrue(contentPage.verifyToastMessage("Subject created successfully"), "Subject creation success message was not displayed.");
-                }
+                Assert.assertTrue(
+                        contentPage.verifyToastMessage("Subject created successfully")
+                                || contentPage.verifyToastMessage(
+                                "A subject with this title already exists. Please choose a different title."
+                        ),
+                        "Subject creation result was not displayed."
+                );
             }
 
             levelPage.addNewLevel(subjectName, levelNumber, grade, description, imagePath);
 
             if (levelPage.isLevelAlreadyExists()) {
-                System.out.println("Level " + levelNumber + " already exists for subject " + subjectName + ". Continuing test.");
+                logger.warn("Level [{}] already exists for Subject [{}]", levelNumber, subjectName);
                 continue;
             }
 
-            Assert.assertTrue(levelPage.verifyToastMessage("Level created successfully"), "Level creation success message was not displayed.");
+            Assert.assertTrue(
+                    levelPage.verifyToastMessage("Level created successfully"),
+                    "Level creation success message was not displayed for Level " + levelNumber
+            );
         }
+
+        logger.info("TC_LEVEL_001 PASSED");
     }
 
     @Test(description = "TC_LEVEL_002 - Verify Level Active and Inactive Status")
     public void verifyLevelActiveInactiveStatus() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-        LevelPage levelPage = new LevelPage(driver);
+        List<Map<String, String>> contentData = TestDataUtil.loadContentData();
 
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
+
         Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page is not displayed.");
 
         for (Map<String, String> data : contentData) {
-            String subjectName = data.get("SubjectName");
+            String subjectName = TestDataUtil.getRequiredValue(data, "SubjectName");
 
-            validateRequired("SubjectName", subjectName);
+            Assert.assertTrue(
+                    contentPage.isSubjectDisplayed(subjectName),
+                    "Subject '" + subjectName + "' was not found."
+            );
 
-            Assert.assertTrue(contentPage.isSubjectDisplayed(subjectName), "Subject '" + subjectName + "' was not found.");
+            levelPage.openSubject(subjectName);
+            levelPage.setInactive();
 
-            levelPage.clickSubject(subjectName);
+            Assert.assertTrue(
+                    levelPage.verifyToastMessage("Level status changed to Inactive"),
+                    "Inactive status toast message was not displayed."
+            );
 
-            levelPage.clickInactive();
-            Assert.assertTrue(levelPage.verifyToastMessage("Level status changed to Inactive"), "Inactive status toast message was not displayed.");
+            levelPage.waitForToastToDisappear();
+            levelPage.setActive();
 
-            levelPage.clickActive();
-            Assert.assertTrue(levelPage.verifyToastMessage("Level status changed to Active"), "Active status toast message was not displayed.");
+            Assert.assertTrue(
+                    levelPage.verifyToastMessage("Level status changed to Active"),
+                    "Active status toast message was not displayed."
+            );
+
+            levelPage.waitForToastToDisappear();
         }
+
+        logger.info("TC_LEVEL_002 PASSED");
     }
 
     @Test(description = "TC_LEVEL_003 - Edit Level Details")
     public void verifyEditLevelDetails() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-        LevelPage levelPage = new LevelPage(driver);
+        List<Map<String, String>> contentData = TestDataUtil.loadContentData();
 
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
+
         Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page is not displayed.");
 
         for (Map<String, String> data : contentData) {
-            String subjectName = data.get("SubjectName");
-            String editLevelNumber = data.get("EditLevelNumber");
-            String editLevelName = data.get("Edit Level Name");
-           String editDescription = data.get("Edit Description");
-            String editImageName = data.get("Edit Image");
+            String subjectName = TestDataUtil.getRequiredValue(data, "SubjectName");
+            String editLevelNumber = TestDataUtil.getRequiredValue(data, "EditLevelNumber");
+            String editLevelName = TestDataUtil.getRequiredValue(data, "Edit Level Name");
+            String editDescription = TestDataUtil.getRequiredValue(data, "Edit Description");
+            String editImagePath = TestDataUtil.getResourcePath(
+                    TestDataUtil.getRequiredValue(data, "Edit Image")
+            );
 
-            validateRequired("SubjectName", subjectName);
-            validateRequired("EditLevelNumber", editLevelNumber);
-            validateRequired("Edit Level Name", editLevelName);
-            validateRequired("Edit Description", editDescription);
-            validateRequired("Edit Image", editImageName);
+            Assert.assertTrue(
+                    contentPage.isSubjectDisplayed(subjectName),
+                    "Subject '" + subjectName + "' was not found."
+            );
 
-            String editImagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", editImageName.trim()).toString();
+            levelPage.openSubject(subjectName);
+            levelPage.openEditLevel();
 
-            Assert.assertTrue(contentPage.isSubjectDisplayed(subjectName), "Subject '" + subjectName + "' not found.");
+            Assert.assertTrue(
+                    levelPage.isEditFormDisplayed(),
+                    "Edit Level form was not displayed."
+            );
 
-            levelPage.clickSubject(subjectName);
-            levelPage.clickEditLevelDetails();
+            levelPage.editLevel(
+                    editLevelNumber,
+                    editLevelName,
+                    editDescription,
+                    editImagePath
+            );
 
-            Assert.assertTrue(levelPage.isEditLevelFormDisplayed(), "Edit Level form was not displayed.");
-
-            levelPage.editLevel(editLevelNumber, editLevelName, editDescription, editImagePath);
-
-            Assert.assertTrue(levelPage.isEditLevelFormDisplayed(), "Edit Level form is no longer displayed after update.");
+            Assert.assertTrue(
+                    levelPage.isEditFormDisplayed(),
+                    "Edit Level form is no longer displayed after update."
+            );
         }
-    }
 
-    private void validateRequired(String fieldName, String value) {
-        if (value == null || value.trim().isEmpty()) {
-            throw new RuntimeException(fieldName + " is missing in CSV.");
-        }
+        logger.info("TC_LEVEL_003 PASSED");
     }
 }

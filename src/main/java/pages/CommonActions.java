@@ -1,50 +1,44 @@
 package pages;
 
-import org.openqa.selenium.*;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.time.Duration;
-import java.util.List;
-
 public class CommonActions {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonActions.class);
+    private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(20);
 
     private final WebDriver driver;
     private final WebDriverWait wait;
 
     public CommonActions(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     }
 
-    public boolean verifyText(By locator, String expectedText) {
-        try {
-            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            String actualText = element.getText().trim();
-            boolean result = actualText.contains(expectedText);
-            logger.info("Verify text | Expected: '{}' | Actual: '{}' | Result: {}", expectedText, actualText, result);
-            return result;
-        } catch (TimeoutException e) {
-            logger.error("Text not found | Locator: {} | Expected: {}", locator, expectedText);
-            return false;
-        }
-    }
-    public void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({block:'center'});", element);
-    }
     public void click(By locator) {
         logger.info("Clicking element: {}", locator);
+
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
+
+        scrollToElement(element);
+
         try {
             element.click();
             logger.info("Element clicked successfully: {}", locator);
@@ -54,60 +48,108 @@ public class CommonActions {
         }
     }
 
-    public WebElement getElement(By locator) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    public void enterText(By locator, String text) {
+        logger.info("Entering text into: {}", locator);
+
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+        element.clear();
+        element.sendKeys(text);
+
+        logger.info("Text entered successfully into: {}", locator);
     }
 
-    public boolean isDisplayed(By locator) {
+    public void enterTextIntoEditor(By locator, String text) {
+        logger.info("Entering text into editor: {}", locator);
+
+        WebElement editor = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+        scrollToElement(editor);
+
         try {
-            boolean displayed = wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
-            logger.info("Element displayed: {} | Result: {}", locator, displayed);
-            return displayed;
-        } catch (TimeoutException e) {
-            logger.error("Element not displayed: {}", locator);
-            return false;
+            editor.click();
+            editor.sendKeys(text);
+            logger.info("Text entered into editor successfully.");
+        } catch (Exception e) {
+            logger.warn("Normal editor input failed. Trying JavaScript input.");
+
+            ((JavascriptExecutor) driver).executeScript(
+                    "arguments[0].innerHTML = arguments[1];",
+                    editor,
+                    text
+            );
         }
     }
 
-    public String getText(By locator) {
-        String text = getElement(locator).getText().trim();
-        logger.info("Element text | Locator: {} | Text: '{}'", locator, text);
-        return text;
+//    public void uploadFile(By fileInput, By uploadedImage, String filePath) {
+//        File file = new File(filePath);
+//
+//        validateFile(file);
+//
+//        logger.info("Uploading file: {}", file.getAbsolutePath());
+//
+//        WebElement fileElement = wait.until(
+//                ExpectedConditions.presenceOfElementLocated(fileInput)
+//        );
+//
+//        fileElement.sendKeys(file.getAbsolutePath());
+//
+//        logger.info("File selected successfully: {}", file.getName());
+//
+//        if (uploadedImage != null) {
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(uploadedImage));
+//            logger.info("Uploaded file verified successfully.");
+//        }
+//    }
+
+    public void uploadFile(By fileInput, By uploadedImage, String filePath) {
+
+        File file = new File(filePath);
+
+        validateFile(file);
+
+        logger.info("Starting file upload: {}", file.getAbsolutePath());
+
+        WebDriverWait uploadWait =
+                new WebDriverWait(driver, Duration.ofSeconds(40));
+
+        WebElement fileElement = uploadWait.until(
+                ExpectedConditions.presenceOfElementLocated(fileInput)
+        );
+
+        logger.info("File input found: {}", fileInput);
+
+        fileElement.sendKeys(file.getAbsolutePath());
+
+        logger.info("File selected successfully: {}", file.getName());
+
+        if (uploadedImage != null) {
+
+            logger.info("Waiting for uploaded image...");
+
+            uploadWait.until(
+                    ExpectedConditions.visibilityOfElementLocated(uploadedImage)
+            );
+
+            logger.info("Uploaded image is visible.");
+        }
+
+        sleepTwoSeconds();
+
+        logger.info("File upload completed: {}", file.getName());
     }
-
-    public void enterText(By locator, String text) {
-        logger.info("Entering text '{}' into: {}", text, locator);
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        element.clear();
-        element.sendKeys(text);
-    }
-
-    public void waitForElementToBeDisplayed(By locator) {
-        logger.info("Waiting for element to be displayed: {}", locator);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public void waitForElementToBeClickable(By locator) {
-        logger.info("Waiting for element to be clickable: {}", locator);
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-
-
     public void uploadVideo(By chooseVideo, String filePath) {
+        File file = new File(filePath);
+
+        validateFile(file);
+
+        logger.info("Starting video upload: {}", file.getAbsolutePath());
+
+        click(chooseVideo);
+
         try {
-            File file = new File(filePath);
-
-            if (!file.exists() || !file.isFile()) {
-                throw new IllegalArgumentException("Invalid video file: " + file.getAbsolutePath());
-            }
-
-            logger.info("Starting video upload: {}", file.getAbsolutePath());
-
-            click(chooseVideo);
-            sleepThreeSeconds();
-
             StringSelection selection = new StringSelection(file.getAbsolutePath());
+
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
 
             Robot robot = new Robot();
@@ -117,94 +159,234 @@ public class CommonActions {
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
 
-            sleepOneSecond();
-
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
 
-            sleepThreeSeconds();
-
-            logger.info("Video uploaded successfully: {}", file.getName());
+            logger.info("Video upload completed: {}", file.getName());
 
         } catch (AWTException e) {
-            logger.error("Robot failed during video upload", e);
-            throw new RuntimeException("Video upload failed", e);
+            logger.error("Robot failed during video upload.", e);
+            throw new RuntimeException("Video upload failed.", e);
         }
     }
 
+    public boolean isDisplayed(By locator) {
+        try {
+            boolean displayed = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(locator)
+            ).isDisplayed();
 
-    public void logFileInputs() {
-        List<WebElement> inputs = driver.findElements(
-                By.xpath("//input[@type='file']")
+            logger.info("Element displayed: {} | Result: {}", locator, displayed);
+
+            return displayed;
+
+        } catch (TimeoutException e) {
+            logger.warn("Element not displayed: {}", locator);
+            return false;
+        }
+    }
+
+    public String getText(By locator) {
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator)
         );
 
-        logger.info("Total file inputs found: {}", inputs.size());
+        String text = element.getText().trim();
 
-        for (int i = 0; i < inputs.size(); i++) {
-            WebElement input = inputs.get(i);
+        logger.info("Element text | Locator: {} | Text: '{}'", locator, text);
+
+        return text;
+    }
+
+    public boolean verifyText(By locator, String expectedText) {
+        logger.info(
+                "Verifying text | Locator: {} | Expected: '{}'",
+                locator,
+                expectedText
+        );
+
+        try {
+            boolean result = wait.until(
+                    ExpectedConditions.textToBePresentInElementLocated(
+                            locator,
+                            expectedText
+                    )
+            );
 
             logger.info(
-                    "File Input {} | accept='{}' | displayed={} | enabled={}",
-                    i + 1,
-                    input.getAttribute("accept"),
-                    input.isDisplayed(),
-                    input.isEnabled()
+                    "Verify text | Expected: '{}' | Result: {}",
+                    expectedText,
+                    result
             );
+
+            return result;
+
+        } catch (TimeoutException e) {
+            logger.warn(
+                    "Expected text not found within timeout | Locator: {} | Expected: '{}'",
+                    locator,
+                    expectedText
+            );
+
+            return false;
         }
     }
 
+    public boolean waitForText(By locator, String expectedText) {
+        try {
+            boolean result = wait.until(
+                    ExpectedConditions.textToBePresentInElementLocated(
+                            locator,
+                            expectedText
+                    )
+            );
 
+            logger.info(
+                    "Waiting for text | Expected: '{}' | Result: {}",
+                    expectedText,
+                    result
+            );
 
+            return result;
 
-    public void uploadFile(By fileInput, By uploadedImage, By image, String filePath) {
-        File file = new File(filePath);
+        } catch (TimeoutException e) {
+            logger.error(
+                    "Expected text not found within timeout | Locator: {} | Expected: {}",
+                    locator,
+                    expectedText
+            );
 
-        if (!file.exists()) {
-            logger.error("File not found: {}", file.getAbsolutePath());
-            throw new IllegalArgumentException("File not found: " + file.getAbsolutePath());
-        }
-
-        if (!file.isFile()) {
-            logger.error("Invalid file: {}", file.getAbsolutePath());
-            throw new IllegalArgumentException("Invalid file: " + file.getAbsolutePath());
-        }
-
-        logger.info("Uploading file: {}", file.getAbsolutePath());
-
-        sleepThreeSeconds();
-
-        WebElement fileElement = wait.until(ExpectedConditions.presenceOfElementLocated(fileInput));
-
-        sleepThreeSeconds();
-
-        fileElement.sendKeys(file.getAbsolutePath());
-        logger.info("File uploaded successfully: {}", file.getName());
-
-        sleepThreeSeconds();
-
-        if (uploadedImage != null) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(uploadedImage));
-            logger.info("Uploaded image verified successfully.");
-            sleepThreeSeconds();
+            return false;
         }
     }
 
+//    public boolean waitForToastText(By toastLocator, String expectedText) {
+//        logger.info("Waiting for toast message: '{}'", expectedText);
+//
+//        try {
+//            return wait.until(driver -> {
+//                try {
+//                    WebElement toast = driver.findElement(toastLocator);
+//
+//                    if (!toast.isDisplayed()) {
+//                        return false;
+//                    }
+//
+//                    String actualText = toast.getText().trim();
+//
+//                    logger.debug(
+//                            "Current toast text: '{}' | Expected: '{}'",
+//                            actualText,
+//                            expectedText
+//                    );
+//
+//                    return actualText.contains(expectedText);
+//
+//                } catch (Exception e) {
+//                    return false;
+//                }
+//            });
+//
+//        } catch (TimeoutException e) {
+//            logger.error(
+//                    "Toast message not displayed | Expected: '{}'",
+//                    expectedText
+//            );
+//
+//            return false;
+//        }
+//    }
+
+    public boolean waitForToastText(By locator, String expectedText) {
+
+        logger.info(
+                "Waiting for toast message | Expected: '{}'",
+                expectedText
+        );
+
+        try {
+            WebDriverWait toastWait =
+                    new WebDriverWait(driver, Duration.ofSeconds(8));
+
+            return toastWait.until(
+                    ExpectedConditions.textToBePresentInElementLocated(
+                            locator,
+                            expectedText
+                    )
+            );
+
+        } catch (TimeoutException e) {
+            logger.warn(
+                    "Toast message not found | Expected: '{}'",
+                    expectedText
+            );
+            return false;
+        }
+    }
+
+    public void waitForToastToDisappear(By toastLocator) {
+        logger.info("Waiting for existing toast to disappear: {}", toastLocator);
+
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(toastLocator));
+            logger.info("Existing toast disappeared.");
+        } catch (TimeoutException e) {
+            logger.warn("Existing toast did not disappear within timeout: {}", toastLocator);
+        }
+    }
+
+    public WebElement getElement(By locator) {
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(locator)
+        );
+    }
+
+    public void waitForElementToBeDisplayed(By locator) {
+        logger.info("Waiting for element to be displayed: {}", locator);
+
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator)
+        );
+    }
+
+    public void waitForElementToBeVisible(By locator) {
+        waitForElementToBeDisplayed(locator);
+    }
+
+    public void waitForElementToBeClickable(By locator) {
+        logger.info("Waiting for element to be clickable: {}", locator);
+
+        wait.until(
+                ExpectedConditions.elementToBeClickable(locator)
+        );
+    }
+
+    public void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});",
+                element
+        );
+    }
+
+    public void scrollToElement(By locator) {
+        WebElement element = getElement(locator);
+        scrollToElement(element);
+    }
 
     public boolean verifyFieldValidation(By errorLocator, String expectedMessage) {
-        logger.info("Validating field error message. Expected: '{}'", expectedMessage);
+        logger.info(
+                "Validating field error message. Expected: '{}'",
+                expectedMessage
+        );
 
-        boolean result = verifyText(errorLocator, expectedMessage);
-
-        if (result) {
-            logger.info("Field validation passed: '{}'", expectedMessage);
-        } else {
-            logger.error("Field validation failed. Expected: '{}'", expectedMessage);
-        }
-
-        return result;
+        return verifyText(errorLocator, expectedMessage);
     }
 
-    public boolean validateField(By submitButton, By errorLocator, String expectedMessage) {
+    public boolean validateField(
+            By submitButton,
+            By errorLocator,
+            String expectedMessage) {
+
         logger.info("Submitting form for field validation.");
 
         click(submitButton);
@@ -214,21 +396,34 @@ public class CommonActions {
                 expectedMessage
         );
     }
-    public void sleepThreeSeconds() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.error("Thread interrupted during 3-second wait.", e);
-            throw new RuntimeException("Thread was interrupted during 3-second wait.", e);
-        }
+
+    public void logFileInputs() {
+        int count = driver.findElements(
+                By.xpath("//input[@type='file']")
+        ).size();
+
+        logger.info("Total file inputs found: {}", count);
     }
 
-    public void sleepOneSecond() {
+    private void validateFile(File file) {
+        if (!file.exists()) {
+            throw new IllegalArgumentException(
+                    "File not found: " + file.getAbsolutePath()
+            );
+        }
+
+        if (!file.isFile()) {
+            throw new IllegalArgumentException(
+                    "Invalid file: " + file.getAbsolutePath()
+            );
+        }
+    }
+    public void sleepTwoSeconds() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            logger.error("Thread interrupted during 2-second wait.", e);
         }
     }
 }

@@ -1,109 +1,128 @@
-
-        package base;
+package base;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import driver.DriverFactory;
+import pages.ContentPage;
+import pages.DashboardPage;
+import pages.LoginPage;
 import utils.CsvReader;
+import utils.DriverManager;
 
 public class BaseTest {
 
     private static final Logger logger = LogManager.getLogger(BaseTest.class);
+    private static final Duration IMPLICIT_WAIT = Duration.ofSeconds(0);
+    private static final Duration PAGE_LOAD_TIMEOUT = Duration.ofSeconds(30);
+    private static final Duration EXPLICIT_WAIT = Duration.ofSeconds(20);
 
-    public static WebDriver driver;
+    protected WebDriver driver;
     protected WebDriverWait wait;
-
-    // Environment data
     protected List<Map<String, String>> environmentData;
+
+    protected LoginPage loginPage;
+    protected ContentPage contentPage;
+    protected DashboardPage dashboardPage;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-
-        // Load environment data from CSV
-        environmentData = CsvReader.read(
-                "testdata/environment.csv"
-        );
+        environmentData = CsvReader.read("testdata/environment.csv");
 
         if (environmentData == null || environmentData.isEmpty()) {
             throw new RuntimeException("No environment data found in CSV file");
         }
 
         Map<String, String> data = environmentData.get(0);
-
-        String browser = data.get("Browser");
+        String browser = getBrowser(data);
         String url = data.get("URL");
+        boolean headless = getHeadlessValue();
 
-        logger.info("====================================");
-        logger.info("Starting Test Execution");
-        logger.info("Browser : {}", browser);
-        logger.info("URL     : {}", url);
-        logger.info("====================================");
-
-        // Initialize browser
-        driver = createDriver(browser);
-
-        // Browser timeout configuration
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-
-        // Explicit wait
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        // Maximize only for local execution
-        boolean isGitHub = System.getenv("GITHUB_ACTIONS") != null;
-
-        if (!isGitHub) {
-            try {
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                logger.warn("Unable to maximize browser. Setting window size instead.");
-                driver.manage().window().setSize(new Dimension(1920, 1080));
-            }
+        if (url == null || url.trim().isEmpty()) {
+            throw new RuntimeException("URL is missing in environment.csv");
         }
 
-        // Open application
+        driver = DriverFactory.createDriver(browser, headless);
+        DriverManager.setDriver(driver);
+        driver = DriverManager.getDriver();
+
+        loginPage = new LoginPage(driver);
+        contentPage = new ContentPage(driver);
+        dashboardPage = new DashboardPage(driver);
+
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT);
+        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT);
+        wait = new WebDriverWait(driver, EXPLICIT_WAIT);
+
+        if (!headless) {
+            maximizeBrowser();
+        }
+
         driver.get(url);
 
-        logger.info("Application Opened : {}", driver.getCurrentUrl());
+        logger.info("Test setup completed.");
     }
 
-    private WebDriver createDriver(String browser) {
+    protected void loginAndNavigate() {
+        loginPage.login(
+                environmentData.get(0).get("Username"),
+                environmentData.get(0).get("Password")
+        );
 
-        WebDriverManager.chromedriver().setup();
+        contentPage.waitForDashboard();
+    }
 
-        ChromeOptions options = new ChromeOptions();
+    private String getBrowser(Map<String, String> data) {
+        String systemBrowser = System.getProperty("browser");
 
-        boolean isGitHub = System.getenv("GITHUB_ACTIONS") != null;
-
-        if (isGitHub) {
-            options.addArguments("--headless=new");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--window-size=1920,1080");
+        if (systemBrowser != null && !systemBrowser.trim().isEmpty()) {
+            return systemBrowser.trim();
         }
 
-        if (browser.equalsIgnoreCase("Chrome")) {
-            logger.info("Launching Chrome Browser.");
-            return new ChromeDriver(options);
+        String csvBrowser = data.get("Browser");
+
+        if (csvBrowser == null || csvBrowser.trim().isEmpty()) {
+            throw new RuntimeException("Browser is missing in environment.csv");
         }
 
-        throw new RuntimeException("Unsupported browser : " + browser);
+        return csvBrowser.trim();
+    }
+
+    private boolean getHeadlessValue() {
+        String headlessProperty = System.getProperty("headless");
+
+        if (headlessProperty == null || headlessProperty.trim().isEmpty()) {
+            return false;
+        }
+
+        return Boolean.parseBoolean(headlessProperty);
+    }
+
+    private void maximizeBrowser() {
+        try {
+            driver.manage().window().maximize();
+        } catch (Exception e) {
+            logger.warn("Unable to maximize browser. Setting window size instead.");
+
+            try {
+                driver.manage().window().setSize(new Dimension(1920, 1080));
+            } catch (Exception windowException) {
+                logger.warn("Unable to set browser window size.", windowException);
+            }
+        }
     }
 
     public WebDriver getDriver() {
-        return driver;
+        return DriverManager.getDriver();
     }
 
     public List<Map<String, String>> getEnvironmentData() {
@@ -112,11 +131,14 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-
-        if (driver != null) {
-            driver.quit();
-            logger.info("Browser closed successfully.");
+        try {
+            DriverManager.quitDriver();
+        } catch (Exception e) {
+            logger.error("Error while closing browser.", e);
+        } finally {
+            driver = null;
+            wait = null;
+            DriverManager.removeDriver();
         }
     }
 }
-

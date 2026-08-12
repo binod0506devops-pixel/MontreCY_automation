@@ -1,110 +1,82 @@
 package test;
 
-import base.BaseTest;
+import java.awt.AWTException;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.CommonActions;
-import pages.ContentPage;
-import pages.LoginPage;
+
+import base.BaseTest;
 import utils.CsvReader;
 import utils.TestListener;
 
-import java.awt.*;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
-
 @Listeners(TestListener.class)
 public class ContentTest extends BaseTest {
-    private static final Logger logger = LoggerFactory.getLogger(CommonActions.class);
 
-    @Test(description = " TC_SUB_005 - Create Subject with Valid Name")
+    private static final Logger logger = LoggerFactory.getLogger(ContentTest.class);
+    private static final String CONTENT_DATA_FILE = "testdata/contentmoduledata.csv";
+
+    @Test(description = "TC_SUB_005 - Create Subject with Valid Name")
     public void verifyAddNewSubject() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
+        Map<String, String> data = getContentData();
 
-        List<Map<String, String>> contentData = CsvReader.read("testdata/contentmoduledata.csv");
-        if (contentData == null || contentData.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = contentData.get(0);
-        String subjectName = data.get("SubjectName");
-        String imageName = data.get("ImageName");
-        String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", imageName).toString();
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
 
-        Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page not displayed.");
+        Assert.assertTrue(
+                contentPage.isSubjectsDisplayed(),
+                "Subjects page not displayed."
+        );
 
         contentPage.clickAddNewSubject();
-        contentPage.addNewSubject(subjectName, imagePath);
 
-        Assert.assertTrue(contentPage.verifyToastMessage("Subject created successfully"),
-                "Subject creation success message was not displayed.");
+        contentPage.addNewSubject(
+                data.get("SubjectName"),
+                getResourcePath(data.get("ImageName"))
+        );
+
+        Assert.assertTrue(
+                contentPage.verifyToastMessage("Subject created successfully"),
+                "Subject creation success message was not displayed."
+        );
+
+        logger.info("TC_SUB_005 PASSED");
     }
-
 
     @Test(
             description = "TC_LEVEL_001 - Create Level with Valid Details",
             dependsOnMethods = "verifyAddNewSubject"
     )
     public void verifyAddNewLevel() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
+        Map<String, String> data = getContentData();
 
-        List<Map<String, String>> dataList = CsvReader.read("testdata/contentmoduledata.csv");
-        if (dataList == null || dataList.isEmpty()) throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = dataList.get(0);
-        String imageName = data.get("ImageName");
-        String imagePath = Paths.get(System.getProperty("user.dir"), "src", "main", "resources", imageName).toString();
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
+
         contentPage.addNewLevel(
                 data.get("SubjectName"),
                 data.get("LevelNumber"),
                 data.get("Grade"),
                 data.get("Description"),
-                imagePath
+                getResourcePath(data.get("ImageName"))
         );
+
+        logger.info("TC_LEVEL_001 PASSED");
     }
 
-    @Test(description = "TC_CHAPTER_001 - Create Chapter with Valid Details",
-            dependsOnMethods = {"verifyAddNewSubject", "verifyAddNewLevel"})
+    @Test(
+            description = "TC_CHAPTER_001 - Create Chapter with Valid Details",
+            dependsOnMethods = {"verifyAddNewSubject", "verifyAddNewLevel"}
+    )
     public void verifyAddNewChapter() throws InterruptedException, AWTException {
+        Map<String, String> data = getContentData();
 
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-
-        List<Map<String, String>> dataList =
-                CsvReader.read("testdata/contentmoduledata.csv");
-
-        if (dataList == null || dataList.isEmpty())
-            throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = dataList.get(0);
-
-        String videoPath = Paths.get(
-                System.getProperty("user.dir"), "src", "main", "resources",
-                data.get("VideoName")
-        ).toString();
-
-        String imagePath = Paths.get(
-                System.getProperty("user.dir"), "src", "main", "resources",
-                data.get("CoverImageName")
-        ).toString();
-
-        loginPage.login(
-                environmentData.get(0).get("Username"),
-                environmentData.get(0).get("Password")
-        );
-
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
 
         Assert.assertTrue(
@@ -118,8 +90,8 @@ public class ContentTest extends BaseTest {
                 data.get("ChapterNumber"),
                 data.get("ChapterTitle"),
                 data.get("ChapterDescription"),
-                videoPath,
-                imagePath,
+                getResourcePath(data.get("VideoName")),
+                getResourcePath(data.get("CoverImageName")),
                 data.get("Content"),
                 data.get("LearningOutcome1"),
                 data.get("LearningOutcome2"),
@@ -131,33 +103,25 @@ public class ContentTest extends BaseTest {
                 data.get("TriviaOptionD"),
                 data.get("TriviaContent")
         );
+
+        logger.info("TC_CHAPTER_001 PASSED");
     }
 
-
-
-
-    @Test(priority = 4, dependsOnMethods = "verifyAddNewChapter", description = "TC_007 - Verify Add Quiz Question")
+    @Test(
+            priority = 4,
+            dependsOnMethods = "verifyAddNewChapter",
+            description = "TC_007 - Verify Add Quiz Question"
+    )
     public void verifyAddQuizQuestion() {
+        Map<String, String> data = getContentData();
 
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-
-        List<Map<String, String>> dataList = CsvReader.read("testdata/contentmoduledata.csv");
-
-        if (dataList == null || dataList.isEmpty())
-            throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = dataList.get(0);
-
-        logger.info("SubjectName: {}", data.get("SubjectName"));
-        logger.info("Grade: {}", data.get("Grade"));
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
 
-        Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page not displayed.");
+        Assert.assertTrue(
+                contentPage.isSubjectsDisplayed(),
+                "Subjects page not displayed."
+        );
 
         contentPage.addQuizQuestion(
                 data.get("SubjectName"),
@@ -169,26 +133,19 @@ public class ContentTest extends BaseTest {
                 data.get("TriviaOptionD"),
                 data.get("TriviaContent")
         );
+
+        logger.info("TC_007 PASSED");
     }
-    @Test(priority = 5, dependsOnMethods = "verifyAddQuizQuestion", description = "TC_ACTIVITY_001 - Add Activity")
+
+    @Test(
+            priority = 5,
+            dependsOnMethods = "verifyAddQuizQuestion",
+            description = "TC_ACTIVITY_001 - Add Activity"
+    )
     public void verifyAddActivity() {
+        Map<String, String> data = getContentData();
 
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-
-        List<Map<String, String>> dataList = CsvReader.read("testdata/contentmoduledata.csv");
-
-        if (dataList == null || dataList.isEmpty())
-            throw new RuntimeException("No content data found in contentmoduledata.csv");
-
-        Map<String, String> data = dataList.get(0);
-
-        loginPage.login(
-                environmentData.get(0).get("Username"),
-                environmentData.get(0).get("Password")
-        );
-
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
 
         Assert.assertTrue(
@@ -202,22 +159,49 @@ public class ContentTest extends BaseTest {
                 data.get("ActivityTitle"),
                 data.get("ActivityText")
         );
+
+        logger.info("TC_ACTIVITY_001 PASSED");
     }
 
     @Test(description = "TC_SUB_008 - Add Subject with Blank Name")
     public void verifySubjectNameMandatoryValidation() {
-        LoginPage loginPage = new LoginPage(driver);
-        ContentPage contentPage = new ContentPage(driver);
-
-        loginPage.login(environmentData.get(0).get("Username"), environmentData.get(0).get("Password"));
-        contentPage.waitForDashboard();
+        loginAndNavigate();
         contentPage.clickContent();
 
-        Assert.assertTrue(contentPage.isSubjectsDisplayed(), "Subjects page not displayed.");
+        Assert.assertTrue(
+                contentPage.isSubjectsDisplayed(),
+                "Subjects page not displayed."
+        );
 
         contentPage.clickAddNewSubject();
 
-        Assert.assertTrue(contentPage.validateSubjectNameRequired(),
-                "Subject name required validation message was not displayed.");
+        Assert.assertTrue(
+                contentPage.validateSubjectNameRequired(),
+                "Subject name required validation message was not displayed."
+        );
+
+        logger.info("TC_SUB_008 PASSED");
+    }
+
+    private Map<String, String> getContentData() {
+        List<Map<String, String>> data = CsvReader.read(CONTENT_DATA_FILE);
+
+        if (data == null || data.isEmpty()) {
+            throw new IllegalStateException(
+                    "No content data found in " + CONTENT_DATA_FILE
+            );
+        }
+
+        return data.get(0);
+    }
+
+    private String getResourcePath(String fileName) {
+        return Paths.get(
+                System.getProperty("user.dir"),
+                "src",
+                "main",
+                "resources",
+                fileName
+        ).toString();
     }
 }

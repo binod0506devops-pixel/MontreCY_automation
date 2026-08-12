@@ -1,57 +1,150 @@
 package base;
 
 import java.time.Duration;
-
+import java.util.List;
+import java.util.Map;
+import pages.DashboardPage;
+import pages.LoginPage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import driver.DriverFactory;
+import pages.ContentPage;
+import utils.CsvReader;
+import utils.DriverManager;
 
 public class BaseTest {
+    protected LoginPage loginPage;
+    protected ContentPage contentPage;
+    protected DashboardPage dashboardPage;
+
+    private static final Logger logger = LogManager.getLogger(BaseTest.class);
+    private static final Duration IMPLICIT_WAIT = Duration.ofSeconds(0);
+    private static final Duration PAGE_LOAD_TIMEOUT = Duration.ofSeconds(30);
+    private static final Duration EXPLICIT_WAIT = Duration.ofSeconds(20);
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected List<Map<String, String>> environmentData;
 
-    private static final String BASE_URL =
-            "https://console-sandbox.moneytreecy.in/admin/permissions-matrix";
-
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
+        logger.info("====================================");
+        logger.info("Starting Test Execution");
+        logger.info("Thread ID : {}", Thread.currentThread().getId());
+        logger.info("====================================");
 
-        WebDriverManager.chromedriver().setup();
+        environmentData = CsvReader.read("testdata/environment.csv");
+        if (environmentData == null || environmentData.isEmpty())
+            throw new RuntimeException("No environment data found in CSV file");
 
-        ChromeOptions options = new ChromeOptions();
+        Map<String, String> data = environmentData.get(0);
+        String browser = getBrowser(data);
+        String url = data.get("URL");
+        boolean headless = getHeadlessValue();
 
-        // Do NOT add proxy/offline arguments here
-        // options.addArguments("--proxy-server=...");
-        // options.addArguments("--offline");
+        if (url == null || url.trim().isEmpty())
+            throw new RuntimeException("URL is missing in environment.csv");
 
-        driver = new ChromeDriver(options);
+        logger.info("Browser  : {}", browser);
+        logger.info("URL      : {}", url);
+        logger.info("Headless : {}", headless);
 
-        driver.manage().window().maximize();
+        driver = DriverFactory.createDriver(browser, headless);
+        DriverManager.setDriver(driver);
+        driver = DriverManager.getDriver();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT);
+        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT);
+        wait = new WebDriverWait(driver, EXPLICIT_WAIT);
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        if (!headless)
+            maximizeBrowser();
 
-        System.out.println("Opening URL: " + BASE_URL);
-
-        driver.get(BASE_URL);
-
-        System.out.println("Page opened successfully.");
+        logger.info("Opening application: {}", url);
+        driver.get(url);
+        logger.info("Application Opened: {}", driver.getCurrentUrl());
+        logger.info("Driver initialized successfully.");
     }
 
-    @AfterMethod
-    public void tearDown() {
+    private String getBrowser(Map<String, String> data) {
+        String systemBrowser = System.getProperty("browser");
 
-        if (driver != null) {
-            driver.quit();
+        if (systemBrowser != null && !systemBrowser.trim().isEmpty()) {
+            logger.info("Browser overridden using system property: {}", systemBrowser);
+            return systemBrowser.trim();
         }
+
+        String csvBrowser = data.get("Browser");
+
+        if (csvBrowser == null || csvBrowser.trim().isEmpty())
+            throw new RuntimeException("Browser is missing in environment.csv");
+
+        return csvBrowser.trim();
+    }
+
+    private boolean getHeadlessValue() {
+        String headlessProperty = System.getProperty("headless");
+
+        if (headlessProperty == null || headlessProperty.trim().isEmpty())
+            return false;
+
+        return Boolean.parseBoolean(headlessProperty);
+    }
+
+    private void maximizeBrowser() {
+        try {
+            driver.manage().window().maximize();
+            logger.info("Browser maximized successfully.");
+        } catch (Exception e) {
+            logger.warn("Unable to maximize browser. Setting window size instead.", e);
+
+            try {
+                driver.manage().window().setSize(new Dimension(1920, 1080));
+            } catch (Exception windowException) {
+                logger.warn("Unable to set browser window size.", windowException);
+            }
+        }
+    }
+
+    public WebDriver getDriver() {
+        return DriverManager.getDriver();
+    }
+
+    public List<Map<String, String>> getEnvironmentData() {
+        return environmentData;
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        logger.info("Cleaning up driver. Thread ID: {}", Thread.currentThread().getId());
+
+        try {
+            DriverManager.quitDriver();
+            logger.info("Browser closed successfully.");
+        } catch (Exception e) {
+            logger.error("Error while closing browser.", e);
+        } finally {
+            driver = null;
+            wait = null;
+            DriverManager.removeDriver();
+        }
+
+        logger.info("====================================");
+        logger.info("Test Execution Completed");
+        logger.info("====================================");
+    }
+    protected void loginAndNavigate() {
+        loginPage.login(
+                environmentData.get(0).get("Username"),
+                environmentData.get(0).get("Password")
+        );
+        // Wait for the dashboard to be ready
+        contentPage.waitForDashboard();
     }
 }
