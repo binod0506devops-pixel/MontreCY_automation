@@ -27,7 +27,13 @@
         </classes>
     </test>
 
-<!--    <test name="04 Content">-->
+    <test name="04 ChapterTheoryVideoTest">
+        <classes>
+            <class name="test.ChapterTheoryVideoTest"/>
+        </classes>
+    </test>
+
+    <!--    <test name="04 Content">-->
 <!--        <classes>-->
 <!--            <class name="test.ContentTest"/>-->
 <!--        </classes>-->

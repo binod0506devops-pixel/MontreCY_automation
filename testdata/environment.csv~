@@ -1,2 +1,2 @@
-Environment,Browser,URL,Username,Password
-QA,Edge,https://console-sandbox.moneytreecy.in/admin/permissions-matrix,superadmin@example.com,Admin123!
+Environment,Browser,URL,Username,Password,FinancialLiteracyUID
+QA,Chrome,https://console-sandbox.moneytreecy.in/admin/permissions-matrix,superadmin@example.com,Admin123!,3136ac0f-751b-474c-a257-8039db821fd2

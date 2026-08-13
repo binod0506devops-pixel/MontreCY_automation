@@ -81,26 +81,6 @@ public class CommonActions {
         }
     }
 
-//    public void uploadFile(By fileInput, By uploadedImage, String filePath) {
-//        File file = new File(filePath);
-//
-//        validateFile(file);
-//
-//        logger.info("Uploading file: {}", file.getAbsolutePath());
-//
-//        WebElement fileElement = wait.until(
-//                ExpectedConditions.presenceOfElementLocated(fileInput)
-//        );
-//
-//        fileElement.sendKeys(file.getAbsolutePath());
-//
-//        logger.info("File selected successfully: {}", file.getName());
-//
-//        if (uploadedImage != null) {
-//            wait.until(ExpectedConditions.visibilityOfElementLocated(uploadedImage));
-//            logger.info("Uploaded file verified successfully.");
-//        }
-//    }
 
     public void uploadFile(By fileInput, By uploadedImage, String filePath) {
 
@@ -139,34 +119,86 @@ public class CommonActions {
         logger.info("File upload completed: {}", file.getName());
     }
     public void uploadVideo(By chooseVideo, String filePath) {
+
         File file = new File(filePath);
 
         validateFile(file);
 
-        logger.info("Starting video upload: {}", file.getAbsolutePath());
+        logger.info("========== VIDEO UPLOAD START ==========");
+        logger.info("Video path: {}", file.getAbsolutePath());
+        logger.info("Video exists: {}", file.exists());
+        logger.info("Video size: {} bytes", file.length());
 
         click(chooseVideo);
 
         try {
-            StringSelection selection = new StringSelection(file.getAbsolutePath());
-
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
-
             Robot robot = new Robot();
+
+            Thread.sleep(1500);
+
+            StringSelection selection =
+                    new StringSelection(file.getAbsolutePath());
+
+            Toolkit.getDefaultToolkit()
+                    .getSystemClipboard()
+                    .setContents(selection, null);
+
+            logger.info("Video path copied to clipboard.");
 
             robot.keyPress(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
 
+            logger.info("Video path pasted into Windows file chooser.");
+
+            Thread.sleep(500);
+
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
 
-            logger.info("Video upload completed: {}", file.getName());
+            logger.info("Enter pressed.");
+
+            // Wait for application success message
+            By successMessage =
+                    By.xpath("//*[normalize-space()='Video uploaded successfully']");
+
+            WebDriverWait uploadWait =
+                    new WebDriverWait(driver, Duration.ofSeconds(40));
+
+            uploadWait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            successMessage
+                    )
+            );
+
+            logger.info(
+                    "SUCCESS: Video uploaded successfully: {}",
+                    file.getName()
+            );
+
+            logger.info("========== VIDEO UPLOAD END ==========");
 
         } catch (AWTException e) {
-            logger.error("Robot failed during video upload.", e);
-            throw new RuntimeException("Video upload failed.", e);
+
+            logger.error(
+                    "Robot failed during video upload.",
+                    e
+            );
+
+            throw new RuntimeException(
+                    "Video upload failed.",
+                    e
+            );
+
+        } catch (InterruptedException e) {
+
+            Thread.currentThread().interrupt();
+
+            throw new RuntimeException(
+                    "Video upload interrupted.",
+                    e
+            );
         }
     }
 
@@ -426,4 +458,16 @@ public class CommonActions {
             logger.error("Thread interrupted during 2-second wait.", e);
         }
     }
+//    public void logVisibleText() {
+//        try {
+//            String bodyText = driver.findElement(By.tagName("body")).getText();
+//
+//            logger.info("========== PAGE TEXT AFTER SUBMIT ==========");
+//            logger.info(bodyText);
+//            logger.info("===========================================");
+//
+//        } catch (Exception e) {
+//            logger.error("Unable to read page text.", e);
+//        }
+//    }
 }

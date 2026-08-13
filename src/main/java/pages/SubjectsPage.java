@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class SubjectsPage {
 
@@ -63,8 +64,6 @@ public class SubjectsPage {
         commonActions.sleepTwoSeconds();
         commonActions.click(addSubjectButton);
         commonActions.sleepTwoSeconds();
-
-
 
 
     }
@@ -133,5 +132,24 @@ public class SubjectsPage {
                         "[.//p[contains(text(),'" + subjectName + "')]]" +
                         "//button[.//span[normalize-space()='Delete']]"
         );
+    }
+    public String getSubjectUid(String subjectName) {
+        By subjectTitle = By.xpath(
+                "//h3[contains(@class,'subject-card-title') and normalize-space()='" + subjectName + "']"
+        );
+
+        WebElement titleElement = commonActions.getElement(subjectTitle);
+
+        WebElement card = titleElement.findElement(
+                By.xpath("./ancestor::div[contains(@class,'subject-card')][1]")
+        );
+
+        String imageUrl = card.findElement(By.tagName("img")).getAttribute("src");
+
+        String uid = imageUrl.split("/subjects/")[1].split("/")[0];
+
+        System.out.println("UI UID: [" + uid + "]");
+
+        return uid;
     }
 }

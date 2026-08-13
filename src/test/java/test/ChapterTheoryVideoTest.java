@@ -1,0 +1,65 @@
+package test;
+
+import java.util.List;
+import java.util.Map;
+
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+import base.BaseTest;
+import pages.ChapterTheoryVideoPage;
+import utils.TestDataUtil;
+import utils.TestListener;
+
+@Listeners(TestListener.class)
+public class ChapterTheoryVideoTest extends BaseTest {
+
+    private ChapterTheoryVideoPage chapterPage;
+
+    @Test(description = "TC_CHAPTER_001 - Create Chapter with Valid Details")
+    public void verifyAddNewChapter() throws InterruptedException {
+        List<Map<String, String>> contentData = TestDataUtil.loadContentData();
+        Map<String, String> data = contentData.get(0);
+
+        chapterPage = new ChapterTheoryVideoPage(driver);
+
+        loginAndNavigate();
+        contentPage.clickContent();
+
+        Assert.assertTrue(
+                contentPage.isSubjectsDisplayed(),
+                "Subjects page is not displayed."
+        );
+
+        chapterPage.addNewChapter(
+                TestDataUtil.getRequiredValue(data, "SubjectName"),
+                TestDataUtil.getRequiredValue(data, "Edit Level Name"),
+                TestDataUtil.getRequiredValue(data, "ChapterNumber"),
+                TestDataUtil.getRequiredValue(data, "ChapterTitle"),
+                TestDataUtil.getRequiredValue(data, "ChapterDescription"),
+
+                TestDataUtil.getResourcePath(
+                        TestDataUtil.getRequiredValue(data, "VideoName")
+                ),
+                TestDataUtil.getResourcePath(
+                        TestDataUtil.getRequiredValue(data, "CoverImageName")
+                ),
+                TestDataUtil.getRequiredValue(data, "Content"),
+                TestDataUtil.getRequiredValue(data, "LearningOutcome1"),
+                TestDataUtil.getRequiredValue(data, "LearningOutcome2"),
+                TestDataUtil.getRequiredValue(data, "LearningOutcome3"),
+                TestDataUtil.getRequiredValue(data, "TriviaQuestion"),
+                TestDataUtil.getRequiredValue(data, "TriviaOptionA"),
+                TestDataUtil.getRequiredValue(data, "TriviaOptionB"),
+                TestDataUtil.getRequiredValue(data, "TriviaOptionC"),
+                TestDataUtil.getRequiredValue(data, "TriviaOptionD"),
+                TestDataUtil.getRequiredValue(data, "TriviaContent")
+        );
+
+        Assert.assertTrue(
+                chapterPage.verifyToastMessage("Theory created successfully"),
+                "Theory creation success message was not displayed."
+        );
+    }
+}
